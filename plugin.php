@@ -30,9 +30,8 @@ register_activation_hook( __FILE__, 'ss_activation_check' );
  */
 function ss_activation_check() {
 
-	if ( 'genesis' != basename( TEMPLATEPATH ) ) {
-		ss_deactivate( '1.8.0', '3.3' );
-	}
+	if ( ! defined( 'PARENT_THEME_VERSION' ) || ! version_compare( PARENT_THEME_VERSION, '2.0.0', '>=' ) )
+		ss_deactivate( '2.0.0', '3.6' );
 
 }
 
@@ -46,7 +45,7 @@ function ss_activation_check() {
 function ss_deactivate( $genesis_version = '1.8.0', $wp_version = '3.3' ) {
 
 	deactivate_plugins( plugin_basename( __FILE__ ) );
-	wp_die( sprintf( __( 'Sorry, you cannot run Simple Sidebars without WordPress %s and <a href="%s">Genesis %s</a>, or greater.', 'ss' ), $wp_version, 'http://www.studiopress.com/support/showthread.php?t=19576', $genesis_version ) );
+	wp_die( sprintf( __( 'Sorry, you cannot run Simple Sidebars without WordPress %s and <a href="%s">Genesis %s</a>, or greater.', 'simplehooks' ), $wp_version, 'http://my.studiopress.com/?download_id=91046d629e74d525b3f2978e404e7ffa', $genesis_version ) );
 
 }
 
