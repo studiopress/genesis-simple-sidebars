@@ -4,9 +4,12 @@
  * so that users can choose what sidebar to use.
  */
 add_action('admin_menu', 'ss_add_inpost_metabox');
-function ss_add_inpost_metabox() {	
-	add_meta_box('ss_inpost_metabox', __('Sidebar Selection', 'genesis'), 'ss_inpost_metabox', 'post', 'side', 'low');
-	add_meta_box('ss_inpost_metabox', __('Sidebar Selection', 'genesis'), 'ss_inpost_metabox', 'page', 'side', 'low');
+function ss_add_inpost_metabox() {		
+	foreach ( (array)get_post_types( array( 'public' => true ) ) as $type ) {
+		if ( post_type_supports( $type, 'genesis-simple-sidebars' ) || $type == 'post' || $type == 'page' ) {
+			add_meta_box('ss_inpost_metabox', __('Sidebar Selection', 'genesis'), 'ss_inpost_metabox', $type, 'side', 'low');
+		}	
+	}
 }
 
 function ss_inpost_metabox() { 
