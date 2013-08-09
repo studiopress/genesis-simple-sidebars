@@ -5,7 +5,7 @@
 add_action('admin_init', 'register_ss_settings');
 function register_ss_settings() {
 	register_setting(SS_SETTINGS_FIELD, SS_SETTINGS_FIELD);
-	add_option(SS_SETTINGS_FIELD, '__return_empty_array', '', 'yes');
+	add_option(SS_SETTINGS_FIELD, array(), '', 'yes');
 }
 
 /**
@@ -96,7 +96,7 @@ function ss_settings_admin() { ?>
 
 		</table>
 		
-		<p class="submit"><input type="submit" class="button-primary" name="submit" value="<?php _e('Update', 'ee'); ?>" /></p> 
+		<p class="submit"><input type="submit" class="button-primary" name="submit" value="<?php _e('Update', 'ss'); ?>" /></p> 
 		
 		</form>
 			

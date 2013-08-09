@@ -4,8 +4,14 @@
  * adds new fields to select a sidebar. The variables $tag and $taxonomy
  * are passed via the hook so that we can use them.
  */
-add_action('category_edit_form', 'ss_term_sidebar', 9, 2);
-add_action('post_tag_edit_form', 'ss_term_sidebar', 9, 2);
+function ss_term_edit_init() {
+	$taxonomies = apply_filters( 'genesis_simple_sidebars_taxonomies', array() );
+	if( !empty( $taxonomies ) && is_admin() && is_array( $taxonomies ) ) {
+		foreach( $taxonomies as $tax )
+			add_action( "{$tax}_edit_form", 'ss_term_sidebar', 9, 2 );
+	}
+}
+
 function ss_term_sidebar($tag, $taxonomy) {
 	
 	// Merge Defaults to prevent notices
