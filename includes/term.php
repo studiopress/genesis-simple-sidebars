@@ -5,26 +5,31 @@
  * are passed via the hook so that we can use them.
  */
 function ss_term_edit_init() {
+
 	$taxonomies = ss_get_taxonomies();
-	if( !empty( $taxonomies ) && is_admin() && is_array( $taxonomies ) ) {
+
+	if ( ! empty( $taxonomies ) && is_admin() && is_array( $taxonomies ) ) {
+
 		foreach( $taxonomies as $tax )
 			add_action( "{$tax}_edit_form", 'ss_term_sidebar', 9, 2 );
+
 	}
+
 }
 
 function ss_term_sidebar($tag, $taxonomy) {
-	
+
 	// Merge Defaults to prevent notices
 	$tag->meta = wp_parse_args( $tag->meta, array( '_ss_sidebar' => '', '_ss_sidebar_alt' => '' ) );
 
 	// Pull custom sidebars
 	$_sidebars = stripslashes_deep( get_option( SS_SETTINGS_FIELD ) );
-	
+
 ?>
 
 	<h3><?php _e('Sidebar Options', 'ss'); ?></h3>
 	<table class="form-table">
-	
+
 	<tr class="form-field">
 		<th scope="row" valign="top"><label for="meta[_ss_sidebar]"><?php _e('Primary Sidebar', 'ss'); ?></label></th>
 		<td>
@@ -41,7 +46,7 @@ function ss_term_sidebar($tag, $taxonomy) {
 <?php
 	// don't show the option if there are no 3 column layouts registered
 	if ( ss_has_3_column_layouts() ) {
-?>	
+?>
 	<tr class="form-field">
 		<th scope="row" valign="top"><label for="meta[_ss_sidebar_alt]"><?php _e('Secondary Sidebar', 'ss'); ?></label></th>
 		<td>
@@ -59,6 +64,6 @@ function ss_term_sidebar($tag, $taxonomy) {
 	}
 ?>
 	</table>
-	
+
 <?php
 }
