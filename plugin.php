@@ -9,7 +9,7 @@ Author URI: http://www.nathanrice.net/
 Text Domain: ss
 Domain Path: /languages/
 
-Version: 1.0.0
+Version: 2.0.0-dev
 
 License: GNU General Public License v2.0 (or later)
 License URI: http://www.opensource.org/licenses/gpl-license.php
@@ -60,27 +60,27 @@ add_action( 'genesis_init', 'ss_genesis_init', 12 );
  */
 function ss_genesis_init() {
 
-	/** Deactivate if not running Genesis 1.8.0 or greater */
+	//* Deactivate if not running Genesis 1.8.0 or greater
 	if ( ! class_exists( 'Genesis_Admin_Boxes' ) )
 		add_action( 'admin_init', 'ss_deactivate', 10, 0 );
 
-	/** Load translations */
+	//* Load translations
 	load_plugin_textdomain( 'ss', false, 'genesis-simple-sidebars/languages' );
 
-	/** required hooks */
+	//* required hooks
 	add_action( 'get_header', 'ss_sidebars_init' );
 	add_action( 'widgets_init', 'ss_register_sidebars' );
 
-	/** The rest is admin stuff, so load only if we're in the admin area */
+	//* The rest is admin stuff, so load only if we're in the admin area
 	if ( ! is_admin() )
 		return;
 
-	/** Include admin files */
+	//* Include admin files
 	require_once( SS_PLUGIN_DIR . '/includes/admin.php' );
 	require_once( SS_PLUGIN_DIR . '/includes/inpost.php' );
 	require_once( SS_PLUGIN_DIR . '/includes/term.php' );
 
-	/** let the child theme hook the genesis_simple_sidebars_taxonomies filter before hooking term edit */
+	//* let the child theme hook the genesis_simple_sidebars_taxonomies filter before hooking term edit
 	add_action( 'init', 'ss_term_edit_init' );
 
 }
@@ -95,23 +95,18 @@ function ss_register_sidebars() {
 
 	$_sidebars = stripslashes_deep( get_option( SS_SETTINGS_FIELD ) );
 
-	/** If no sidebars have been created, do nothing */
+	//* If no sidebars have been created, do nothing
 	if ( ! $_sidebars )
 		return;
 
-	/** Cycle through created sidebars, register them as widget areas */
+	//* Cycle through created sidebars, register them as widget areas
 	foreach ( (array) $_sidebars as $id => $info ) {
 
-		register_sidebar( array(
-			'name' => esc_html( $info['name'] ),
-			'id' => $id,
+		genesis_register_sidebar( array(
+			'name'        => esc_html( $info['name'] ),
+			'id'          => $id,
 			'description' => esc_html( $info['description'] ),
-			'editable' => 1,
-
-			'before_widget' => '<div id="%1$s" class="widget %2$s"><div class="widget-wrap">',
-			'after_widget'  => "</div></div>\n",
-			'before_title'  => '<h4 class="widgettitle">',
-			'after_title'   => "</h4>\n"
+			'editable'    => 1,
 		) );
 
 	}

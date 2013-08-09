@@ -34,14 +34,14 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 			)
 		);
 
-		/** Empty, as we'll be building the page manually */
+		//* Empty, as we'll be building the page manually
 		$page_ops = array();
 
 		$settings_field = SS_SETTINGS_FIELD;
 
 		$this->create( $page_id, $menu_ops, $page_ops, $settings_field );
 
-		/** Simpe Sidebar actions (create, edit, or delete) */
+		//* Simpe Sidebar actions (create, edit, or delete)
 		add_action( 'admin_init', array( $this, 'actions' ) );
 
 	}
@@ -123,7 +123,7 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 	 * Action handler.
 	 *
 	 * Depending on what action was intended by the user, this method calls the appropriate action method.
-	 * 
+	 *
 	 * @since 1.0.0
 	 *
 	 */
@@ -201,10 +201,10 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 			exit;
 		}
 
-		//	nonce verification
+		//* nonce verification
 		check_admin_referer( 'simple-sidebars-action_create-sidebar' );
 
-		// WP changes a numeric sidebar id to sidebar-id which makes it inaccessible to the user
+		//* WP changes a numeric sidebar id to sidebar-id which makes it inaccessible to the user
 		if ( is_numeric( $args['id'] ) )
 			$args['id'] = sanitize_title_with_dashes( $args['name'] );
 
@@ -242,10 +242,10 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 			exit;
 		}
 
-		//	nonce verification
+		//* nonce verification
 		check_admin_referer( 'simple-sidebars-action_edit-sidebar' );
 
-		// WP changes a numeric sidebar id to sidebar-id which makes it inaccessible to the user
+		//* WP changes a numeric sidebar id to sidebar-id which makes it inaccessible to the user
 		if ( is_numeric( $args['id'] ) )
 			$args['id'] = sanitize_title_with_dashes( $args['name'] );
 
@@ -283,7 +283,7 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 			exit;
 		}
 
-		//	nonce verification
+		//* nonce verification
 		check_admin_referer( 'simple-sidebars-action_delete-sidebar' );
 
 		$_sidebars = (array) get_option( SS_SETTINGS_FIELD );
