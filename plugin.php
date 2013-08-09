@@ -9,7 +9,7 @@ Author URI: http://www.nathanrice.net/
 Text Domain: ss
 Domain Path: /languages/
 
-Version: 2.0.0-dev
+Version: 2.0.0
 
 License: GNU General Public License v2.0 (or later)
 License URI: http://www.opensource.org/licenses/gpl-license.php
