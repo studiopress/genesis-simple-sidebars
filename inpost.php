@@ -31,10 +31,7 @@ function ss_inpost_metabox() {
 	</p>
 <?php
 	// don't show the option if there are no 3 column layouts registered
-	$_layouts = (array) genesis_get_layouts();
-	$_layouts = array_keys( $_layouts );
-	$_3_column = array_intersect( $_layouts, array( 'content-sidebar-sidebar', 'sidebar-content-sidebar', 'sidebar-sidebar-content' ) );
-	if ( empty( $_3_column ) )
+	if ( !ss_has_3_column_layouts() )
 		return;
 ?>
 	<p>

@@ -3,7 +3,7 @@
 Plugin Name: Genesis Simple Sidebars
 Plugin URI: http://www.studiopress.com/plugins/simple-sidebars
 Description: Genesis Simple Sidebars allows you to easily create and use new sidebar widget areas.
-Version: 0.9.2
+Version: 0.9.2.1
 Author: Nathan Rice
 Author URI: http://www.nathanrice.net/
 Text Domain: ss
@@ -125,7 +125,7 @@ function ss_do_one_sidebar( $bar = '_ss_sidebar' ) {
 	
 	if ( is_tax() ) {
 		if( $taxonomies === null )
-			$taxonomies = (array)apply_filters( 'genesis_simple_sidebars_taxonomies', array() );
+			$taxonomies = ss_get_taxonomies();
 			
 		foreach( $taxonomies as $tax ) {
 			if( $tax == 'post_tag' || $tax == 'category' )
@@ -142,4 +142,20 @@ function ss_do_one_sidebar( $bar = '_ss_sidebar' ) {
 	
 	return false;
 	
+}
+
+function ss_get_taxonomies() {
+
+	$taxonomies = get_taxonomies( array( 'show_ui' => true, 'public' => true ) );
+	return apply_filters( 'genesis_simple_sidebars_taxonomies', array_keys( $taxonomies ) );
+
+}
+
+function ss_has_3_column_layouts() {
+
+	$_layouts = (array) genesis_get_layouts();
+	$_layouts = array_keys( $_layouts );
+	$_3_column = array_intersect( $_layouts, array( 'content-sidebar-sidebar', 'sidebar-content-sidebar', 'sidebar-sidebar-content' ) );
+	return ! empty( $_3_column );
+
 }

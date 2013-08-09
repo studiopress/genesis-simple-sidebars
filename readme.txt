@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: hooks, genesis, genesiswp, studiopress
 Requires at least: 3.0
 Tested up to: 3.3
-Stable tag: 0.9.2
+Stable tag: 0.9.2.1
 
 This plugin allows you to create multiple, dynamic widget areas, and assign those widget areas to sidebar locations within the Genesis Theme Framework on a per post, per page, or per tag/category archive basis.
 
@@ -53,3 +53,9 @@ Not in the way you're probably thinking. The markup surrounding the widget area 
 * Added support for custom taxonomies
 * Added translation support
 * bug fix to prevent invalid sidebar creation
+
+= 0.9.2.1 =
+* Restore default tag/category support
+* Default custom taxonomy support to on for public taxonomies
+* Remove secondary selection when no 3 column layouts are enabled
+

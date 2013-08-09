@@ -5,7 +5,7 @@
  * are passed via the hook so that we can use them.
  */
 function ss_term_edit_init() {
-	$taxonomies = apply_filters( 'genesis_simple_sidebars_taxonomies', array() );
+	$taxonomies = ss_get_taxonomies();
 	if( !empty( $taxonomies ) && is_admin() && is_array( $taxonomies ) ) {
 		foreach( $taxonomies as $tax )
 			add_action( "{$tax}_edit_form", 'ss_term_sidebar', 9, 2 );
@@ -38,7 +38,10 @@ function ss_term_sidebar($tag, $taxonomy) {
 			</select>
 		</td>
 	</tr>
-	
+<?php
+	// don't show the option if there are no 3 column layouts registered
+	if ( ss_has_3_column_layouts() ) {
+?>	
 	<tr class="form-field">
 		<th scope="row" valign="top"><label for="meta[_ss_sidebar_alt]"><?php _e('Secondary Sidebar', 'ss'); ?></label></th>
 		<td>
@@ -52,7 +55,9 @@ function ss_term_sidebar($tag, $taxonomy) {
 			</select>
 		</td>
 	</tr>
-	
+<?php
+	}
+?>
 	</table>
 	
 <?php
