@@ -19,13 +19,18 @@ function ss_add_inpost_metabox() {
 function ss_inpost_metabox() {
 
 	$_sidebars = stripslashes_deep( get_option( SS_SETTINGS_FIELD ) );
+	global $wp_registered_sidebars;
 
 ?>
 
 	<input type="hidden" name="ss_inpost_nonce" value="<?php echo wp_create_nonce( plugin_basename( __FILE__ ) ); ?>" />
 
+<?php
+	if( isset( $wp_registered_sidebars['sidebar'] ) ) {
+?>
+
 	<p>
-		<label class="howto" for="_ss_sidebar"><span><?php _e( 'Primary Sidebar', 'ss' ); ?><span></label>
+		<label class="howto" for="_ss_sidebar"><span><?php echo esc_attr( $wp_registered_sidebars['sidebar']['name'] ); ?><span></label>
 		<select name="_ss_sidebar" id="_ss_sidebar" style="width: 99%">
 			<option value=""><?php _e( 'Default', 'ss' ); ?></option>
 			<?php
@@ -36,12 +41,11 @@ function ss_inpost_metabox() {
 		</select>
 	</p>
 <?php
-	//* don't show the option if there are no 3 column layouts registered
-	if ( ! ss_has_3_column_layouts() )
-		return;
+	}
+	if( isset( $wp_registered_sidebars['sidebar-alt'] ) ) {
 ?>
 	<p>
-		<label class="howto" for="_ss_sidebar_alt"><span><?php _e( 'Secondary Sidebar', 'ss' ); ?><span></label>
+		<label class="howto" for="_ss_sidebar_alt"><span><?php echo esc_attr( $wp_registered_sidebars['sidebar-alt']['name'] ); ?><span></label>
 		<select name="_ss_sidebar_alt" id="_ss_sidebar_alt" style="width: 99%">
 			<option value=""><?php _e( 'Default', 'ss' ); ?></option>
 			<?php
@@ -53,6 +57,7 @@ function ss_inpost_metabox() {
 	</p>
 
 <?php
+	}
 }
 
 add_action( 'save_post', 'ss_inpost_metabox_save', 1, 2 );
