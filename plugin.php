@@ -45,7 +45,7 @@ function ss_activation_check() {
 function ss_deactivate( $genesis_version = '1.8.0', $wp_version = '3.3' ) {
 
 	deactivate_plugins( plugin_basename( __FILE__ ) );
-	wp_die( sprintf( __( 'Sorry, you cannot run Simple Sidebars without WordPress %s and <a href="%s">Genesis %s</a>, or greater.', 'simplehooks' ), $wp_version, 'http://my.studiopress.com/?download_id=91046d629e74d525b3f2978e404e7ffa', $genesis_version ) );
+	wp_die( sprintf( __( 'Sorry, you cannot run Simple Sidebars without WordPress %s and <a href="%s">Genesis %s</a>, or greater.', 'ss' ), $wp_version, 'http://my.studiopress.com/?download_id=91046d629e74d525b3f2978e404e7ffa', $genesis_version ) );
 
 }
 
