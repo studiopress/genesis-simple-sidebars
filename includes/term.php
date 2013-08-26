@@ -31,9 +31,9 @@ function ss_term_sidebar($tag, $taxonomy) {
 	<table class="form-table">
 
 	<tr class="form-field">
-		<th scope="row" valign="top"><label for="meta[_ss_sidebar]"><?php _e( 'Primary Sidebar', 'ss' ); ?></label></th>
+		<th scope="row" valign="top"><label for="genesis-meta[_ss_sidebar]"><?php _e( 'Primary Sidebar', 'ss' ); ?></label></th>
 		<td>
-			<select name="meta[_ss_sidebar]" id="meta[_ss_sidebar]" style="padding-right: 10px;">
+			<select name="genesis-meta[_ss_sidebar]" id="genesis-meta[_ss_sidebar]" style="padding-right: 10px;">
 				<option value=""><?php _e( 'Default', 'ss' ); ?></option>
 				<?php
 				foreach ( (array) $_sidebars as $id => $info ) {
@@ -48,9 +48,9 @@ function ss_term_sidebar($tag, $taxonomy) {
 	if ( ss_has_3_column_layouts() ) {
 ?>
 	<tr class="form-field">
-		<th scope="row" valign="top"><label for="meta[_ss_sidebar_alt]"><?php _e( 'Secondary Sidebar', 'ss' ); ?></label></th>
+		<th scope="row" valign="top"><label for="genesis-meta[_ss_sidebar_alt]"><?php _e( 'Secondary Sidebar', 'ss' ); ?></label></th>
 		<td>
-			<select name="meta[_ss_sidebar_alt]" id="meta[_ss_sidebar_alt]" style="padding-right: 10px;">
+			<select name="genesis-meta[_ss_sidebar_alt]" id="genesis-meta[_ss_sidebar_alt]" style="padding-right: 10px;">
 				<option value=""><?php _e( 'Default', 'ss' ); ?></option>
 				<?php
 				foreach ( (array) $_sidebars as $id => $info ) {
