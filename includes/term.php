@@ -19,10 +19,10 @@ function ss_term_edit_init() {
 
 function ss_term_sidebar($tag, $taxonomy) {
 
-	// Merge Defaults to prevent notices
+	//* Merge Defaults to prevent notices
 	$tag->meta = wp_parse_args( $tag->meta, array( '_ss_sidebar' => '', '_ss_sidebar_alt' => '' ) );
 
-	// Pull custom sidebars
+	//* Pull custom sidebars
 	$_sidebars = stripslashes_deep( get_option( SS_SETTINGS_FIELD ) );
 
 ?>
@@ -44,7 +44,7 @@ function ss_term_sidebar($tag, $taxonomy) {
 		</td>
 	</tr>
 <?php
-	// don't show the option if there are no 3 column layouts registered
+	//* don't show the option if there are no 3 column layouts registered
 	if ( ss_has_3_column_layouts() ) {
 ?>
 	<tr class="form-field">
