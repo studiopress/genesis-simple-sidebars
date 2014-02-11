@@ -58,6 +58,22 @@ function ss_inpost_metabox() {
 
 <?php
 	}
+	if( isset( $wp_registered_sidebars['header-right'] ) ) {
+?>
+	<p>
+		<label class="howto" for="_ss_sidebar_header_right"><span><?php echo esc_attr( $wp_registered_sidebars['header-right']['name'] ); ?><span></label>
+		<select name="_ss_sidebar_header_right" id="_ss_sidebar_header_right" style="width: 99%">
+			<option value=""><?php _e( 'Default', 'ss' ); ?></option>
+			<?php
+			foreach ( (array) $_sidebars as $id => $info ) {
+				printf( '<option value="%s" %s>%s</option>', esc_html( $id ), selected( $id, genesis_get_custom_field( '_ss_sidebar_header_right' ), false ), esc_html( $info['name'] ) );
+			}
+			?>
+		</select>
+	</p>
+
+<?php
+	}
 }
 
 add_action( 'save_post', 'ss_inpost_metabox_save', 1, 2 );
@@ -82,6 +98,7 @@ function ss_inpost_metabox_save( $post_id, $post ) {
 	$_sidebars = array(
 		'_ss_sidebar'     => $_POST['_ss_sidebar'],
 		'_ss_sidebar_alt' => $_POST['_ss_sidebar_alt'],
+		'_ss_sidebar_header_right' => $_POST['_ss_sidebar_header_right'],
 	);
 
 	//* store the custom fields
