@@ -344,6 +344,8 @@ add_action( 'genesis_admin_menu', 'simplesidebars_settings_menu' );
  */
 function simplesidebars_settings_menu() {
 
-	new Genesis_Simple_Sidebars_Admin;
+	global $_genesis_simple_sidebars_admin;
+	
+	$_genesis_simple_sidebars_admin = new Genesis_Simple_Sidebars_Admin;
 
 }
