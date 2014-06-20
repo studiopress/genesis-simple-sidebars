@@ -75,9 +75,7 @@ function ss_genesis_init() {
 		return;
 
 	//* Include admin files
-	if( class_exists( 'Genesis_Admin_Boxes' ) ) {
-		require_once( SS_PLUGIN_DIR . '/includes/admin.php' );
-	}
+	require_once( SS_PLUGIN_DIR . '/includes/admin.php' );
 	require_once( SS_PLUGIN_DIR . '/includes/inpost.php' );
 	require_once( SS_PLUGIN_DIR . '/includes/term.php' );
 
