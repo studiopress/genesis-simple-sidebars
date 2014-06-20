@@ -336,16 +336,6 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 
 }
 
-add_action( 'genesis_admin_menu', 'simplesidebars_settings_menu' );
-/**
- * Instantiate the class to create the menu.
- *
- * @since 1.0.0
- */
-function simplesidebars_settings_menu() {
+global $_genesis_simple_sidebars_admin;
 
-	global $_genesis_simple_sidebars_admin;
-	
-	$_genesis_simple_sidebars_admin = new Genesis_Simple_Sidebars_Admin;
-
-}
+$_genesis_simple_sidebars_admin = new Genesis_Simple_Sidebars_Admin;
