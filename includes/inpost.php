@@ -6,6 +6,12 @@ add_action('admin_menu', 'ss_add_inpost_metabox');
  */
 function ss_add_inpost_metabox() {
 
+	global $wp_registered_sidebars;
+
+	if( ! array_key_exists( 'sidebar', $wp_registered_sidebars ) && ! array_key_exists( 'sidebar-alt', $wp_registered_sidebars ) ){
+		return;
+	}
+	
 	foreach ( (array) get_post_types( array( 'public' => true ) ) as $type ) {
 
 		if ( post_type_supports( $type, 'genesis-simple-sidebars' ) || $type == 'post' || $type == 'page' ) {
