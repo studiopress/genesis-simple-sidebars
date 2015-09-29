@@ -1,0 +1,175 @@
+# Copyright (C) 2015 Nathan Rice
+# This file is distributed under the GNU General Public License v2.0 (or later).
+msgid ""
+msgstr ""
+"Project-Id-Version: Genesis Simple Sidebars 2.0.2\n"
+"Report-Msgid-Bugs-To: StudioPress <translations@studiopress.com>\n"
+"POT-Creation-Date: 2015-09-29 20:53:32+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: StudioPress <translations@studiopress.com>\n"
+"Language-Team: English <translations@studiopress.com>\n"
+"X-Generator: grunt-wp-i18n 0.4.4\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes\n"
+
+#: includes/admin.php:32 includes/views/main.php:2
+msgid "Genesis - Simple Sidebars"
+msgstr ""
+
+#: includes/admin.php:33
+msgid "Simple Sidebars"
+msgstr ""
+
+#: includes/admin.php:107
+msgid "Edit"
+msgstr ""
+
+#: includes/admin.php:108
+msgid "Delete"
+msgstr ""
+
+#: includes/admin.php:173
+msgid "New sidebar successfully created!"
+msgstr ""
+
+#: includes/admin.php:178
+msgid "Sidebar successfully edited!"
+msgstr ""
+
+#: includes/admin.php:183
+msgid "Sidebar successfully deleted."
+msgstr ""
+
+#: includes/admin.php:319
+msgid "Oops! Please choose a valid Name and ID for this sidebar"
+msgstr ""
+
+#: includes/admin.php:322
+msgid "Oops! That sidebar ID already exists"
+msgstr ""
+
+#: includes/admin.php:325
+msgid ""
+"Oops! You are trying to edit a sidebar that does not exist, or is not "
+"editable"
+msgstr ""
+
+#: includes/admin.php:328
+msgid ""
+"Oops! You are trying to delete a sidebar that does not exist, or cannot be "
+"deleted"
+msgstr ""
+
+#: includes/admin.php:331
+msgid "Oops! Something went wrong. Try again."
+msgstr ""
+
+#: includes/inpost.php:12
+msgid "Sidebar Selection"
+msgstr ""
+
+#: includes/inpost.php:35 includes/inpost.php:50 includes/term.php:37
+#: includes/term.php:54
+msgid "Default"
+msgstr ""
+
+#: includes/term.php:30
+msgid "Sidebar Options"
+msgstr ""
+
+#: includes/term.php:34
+msgid "Primary Sidebar"
+msgstr ""
+
+#: includes/term.php:51
+msgid "Secondary Sidebar"
+msgstr ""
+
+#: includes/views/edit.php:5
+msgid "Nice try, partner. But that sidebar doesn't exist. Click back and try again."
+msgstr ""
+
+#: includes/views/edit.php:9
+msgid "Edit Sidebar"
+msgstr ""
+
+#: includes/views/edit.php:17 includes/views/main.php:13
+#: includes/views/main.php:21 includes/views/main.php:48
+msgid "Name"
+msgstr ""
+
+#: includes/views/edit.php:19 includes/views/main.php:50
+msgid "A recognizable name for your new sidebar widget area"
+msgstr ""
+
+#: includes/views/edit.php:23 includes/views/main.php:14
+#: includes/views/main.php:22 includes/views/main.php:54
+msgid "ID"
+msgstr ""
+
+#: includes/views/edit.php:27
+msgid ""
+"The unique ID is used to register the sidebar widget area (cannot be "
+"changed)"
+msgstr ""
+
+#: includes/views/edit.php:31 includes/views/main.php:15
+#: includes/views/main.php:23 includes/views/main.php:60
+msgid "Description"
+msgstr ""
+
+#: includes/views/edit.php:37
+msgid "Update"
+msgstr ""
+
+#: includes/views/main.php:9
+msgid "Current Sidebars"
+msgstr ""
+
+#: includes/views/main.php:42 includes/views/main.php:64
+msgid "Add New Sidebar"
+msgstr ""
+
+#: includes/views/main.php:56
+msgid "The unique ID is used to register the sidebar widget area"
+msgstr ""
+
+#: plugin.php:48
+msgid ""
+"Sorry, you cannot run Simple Sidebars without WordPress %s and <a "
+"href=\"%s\">Genesis %s</a>, or greater."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Genesis Simple Sidebars"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.studiopress.com/plugins/simple-sidebars"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Genesis Simple Sidebars allows you to easily create and use new sidebar "
+"widget areas."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Nathan Rice"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.nathanrice.net/"
+msgstr ""

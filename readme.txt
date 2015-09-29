@@ -3,8 +3,8 @@ Contributors: nathanrice, wpmuguru
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5553118
 Tags: hooks, genesis, genesiswp, studiopress
 Requires at least: 3.6
-Tested up to: 3.6
-Stable tag: 2.0.1
+Tested up to: 4.3.1
+Stable tag: 2.0.2
 
 This plugin allows you to create multiple, dynamic widget areas, and assign those widget areas to sidebar locations within the Genesis Framework on a per post, per page, or per tag/category archive basis.
 
@@ -37,8 +37,34 @@ Not in the way you're probably thinking. The markup surrounding the widget area 
 
 == Changelog ==
 
-= 0.1 =
-* Initial Alpha Release
+= 2.0.2 =
+* Change text domain, update POT file.
+
+= 2.0.1 =
+* Genesis 2.0.1 compatibility with term meta keys
+* Use actual sidebar name, instead of hard coded names
+* Fix incorrect textdomain
+
+= 2.0.0 =
+* Compatibility with Genesis 2.0
+* Standards
+
+= 1.0.0 =
+* Reorganize theme files
+* Standards
+
+= 0.9.2.1 =
+* Restore default tag/category support
+* Default custom taxonomy support to on for public taxonomies
+* Remove secondary selection when no 3 column layouts are enabled
+
+= 0.9.2 =
+* Added support for custom taxonomies
+* Added translation support
+* bug fix to prevent invalid sidebar creation
+
+= 0.9.1 =
+* Added support for custom post types
 
 = 0.9 =
 * Fixed "is not array" errors reported by users
@@ -46,28 +72,7 @@ Not in the way you're probably thinking. The markup surrounding the widget area 
 * Added error and success messages
 * Bump to pre-release 0.9 branch
 
-= 0.9.1 =
-* Added support for custom post types
+= 0.1 =
+* Initial Alpha Release
 
-= 0.9.2 =
-* Added support for custom taxonomies
-* Added translation support
-* bug fix to prevent invalid sidebar creation
 
-= 0.9.2.1 =
-* Restore default tag/category support
-* Default custom taxonomy support to on for public taxonomies
-* Remove secondary selection when no 3 column layouts are enabled
-
-= 1.0.0 =
-* Reorganize theme files
-* Standards
-
-= 2.0.0 =
-* Compatibility with Genesis 2.0
-* Standards
-
-= 2.0.1 =
-* Genesis 2.0.1 compatibility with term meta keys
-* Use actual sidebar name, instead of hard coded names
-* Fix incorrect textdomain

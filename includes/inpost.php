@@ -9,7 +9,7 @@ function ss_add_inpost_metabox() {
 	foreach ( (array) get_post_types( array( 'public' => true ) ) as $type ) {
 
 		if ( post_type_supports( $type, 'genesis-simple-sidebars' ) || $type == 'post' || $type == 'page' ) {
-			add_meta_box( 'ss_inpost_metabox', __( 'Sidebar Selection', 'ss' ), 'ss_inpost_metabox', $type, 'side', 'low' );
+			add_meta_box( 'ss_inpost_metabox', __( 'Sidebar Selection', 'genesis-simple-sidebars' ), 'ss_inpost_metabox', $type, 'side', 'low' );
 		}
 
 	}
@@ -32,7 +32,7 @@ function ss_inpost_metabox() {
 	<p>
 		<label class="howto" for="_ss_sidebar"><span><?php echo esc_attr( $wp_registered_sidebars['sidebar']['name'] ); ?><span></label>
 		<select name="_ss_sidebar" id="_ss_sidebar" style="width: 99%">
-			<option value=""><?php _e( 'Default', 'ss' ); ?></option>
+			<option value=""><?php _e( 'Default', 'genesis-simple-sidebars' ); ?></option>
 			<?php
 			foreach ( (array) $_sidebars as $id => $info ) {
 				printf( '<option value="%s" %s>%s</option>', esc_html( $id ), selected( $id, genesis_get_custom_field( '_ss_sidebar' ), false), esc_html( $info['name'] ) );
@@ -47,7 +47,7 @@ function ss_inpost_metabox() {
 	<p>
 		<label class="howto" for="_ss_sidebar_alt"><span><?php echo esc_attr( $wp_registered_sidebars['sidebar-alt']['name'] ); ?><span></label>
 		<select name="_ss_sidebar_alt" id="_ss_sidebar_alt" style="width: 99%">
-			<option value=""><?php _e( 'Default', 'ss' ); ?></option>
+			<option value=""><?php _e( 'Default', 'genesis-simple-sidebars' ); ?></option>
 			<?php
 			foreach ( (array) $_sidebars as $id => $info ) {
 				printf( '<option value="%s" %s>%s</option>', esc_html( $id ), selected( $id, genesis_get_custom_field( '_ss_sidebar_alt' ), false ), esc_html( $info['name'] ) );
