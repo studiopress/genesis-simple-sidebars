@@ -29,8 +29,8 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		$menu_ops = array(
 			'submenu' => array(
 				'parent_slug' => 'genesis',
-				'page_title'  => __( 'Genesis - Simple Sidebars', 'ss' ),
-				'menu_title'  => __( 'Simple Sidebars', 'ss' )
+				'page_title'  => __( 'Genesis - Simple Sidebars', 'genesis-simple-sidebars' ),
+				'menu_title'  => __( 'Simple Sidebars', 'genesis-simple-sidebars' )
 			)
 		);
 
@@ -104,8 +104,8 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 					<?php if ( $is_editable ) : ?>
 					<br />
 					<div class="row-actions">
-						<span class="edit"><a href="<?php echo admin_url('admin.php?page=simple-sidebars&amp;action=edit&amp;id=' . esc_html( $id ) ); ?>"><?php _e('Edit', 'ss'); ?></a> | </span>
-						<span class="delete"><a class="delete-tag" href="<?php echo wp_nonce_url( admin_url( 'admin.php?page=simple-sidebars&amp;action=delete&amp;id=' . esc_html( $id ) ), 'simple-sidebars-action_delete-sidebar' ); ?>"><?php _e('Delete', 'ss'); ?></a></span>
+						<span class="edit"><a href="<?php echo admin_url('admin.php?page=simple-sidebars&amp;action=edit&amp;id=' . esc_html( $id ) ); ?>"><?php _e('Edit', 'genesis-simple-sidebars'); ?></a> | </span>
+						<span class="delete"><a class="delete-tag" href="<?php echo wp_nonce_url( admin_url( 'admin.php?page=simple-sidebars&amp;action=delete&amp;id=' . esc_html( $id ) ), 'simple-sidebars-action_delete-sidebar' ); ?>"><?php _e('Delete', 'genesis-simple-sidebars'); ?></a></span>
 					</div>
 					<?php endif; ?>
 
@@ -170,17 +170,17 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		$pattern = '<div id="message" class="updated"><p><strong>%s</strong></p></div>';
 
 		if ( isset( $_REQUEST['created'] ) && 'true' === $_REQUEST['created'] ) {
-			printf( $pattern, __( 'New sidebar successfully created!', 'ss' ) );
+			printf( $pattern, __( 'New sidebar successfully created!', 'genesis-simple-sidebars' ) );
 			return;
 		}
 
 		if ( isset( $_REQUEST['edited'] ) && 'true' === $_REQUEST['edited'] ) {
-			printf( $pattern, __( 'Sidebar successfully edited!', 'ss' ) );
+			printf( $pattern, __( 'Sidebar successfully edited!', 'genesis-simple-sidebars' ) );
 			return;
 		}
 
 		if ( isset( $_REQUEST['deleted'] ) && 'true' === $_REQUEST['deleted'] ) {
-			printf( $pattern, __( 'Sidebar successfully deleted.', 'ss' ) );
+			printf( $pattern, __( 'Sidebar successfully deleted.', 'genesis-simple-sidebars' ) );
 			return;
 		}
 
@@ -316,19 +316,19 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		switch( (int) $error ) {
 
 			case 1:
-				return __( 'Oops! Please choose a valid Name and ID for this sidebar', 'ss' );
+				return __( 'Oops! Please choose a valid Name and ID for this sidebar', 'genesis-simple-sidebars' );
 				break;
 			case 2:
-				return __( 'Oops! That sidebar ID already exists', 'ss' );
+				return __( 'Oops! That sidebar ID already exists', 'genesis-simple-sidebars' );
 				break;
 			case 3:
-				return __( 'Oops! You are trying to edit a sidebar that does not exist, or is not editable', 'ss' );
+				return __( 'Oops! You are trying to edit a sidebar that does not exist, or is not editable', 'genesis-simple-sidebars' );
 				break;
 			case 4:
-				return __( 'Oops! You are trying to delete a sidebar that does not exist, or cannot be deleted', 'ss' );
+				return __( 'Oops! You are trying to delete a sidebar that does not exist, or cannot be deleted', 'genesis-simple-sidebars' );
 				break;
 			default:
-				return __( 'Oops! Something went wrong. Try again.', 'ss' );
+				return __( 'Oops! Something went wrong. Try again.', 'genesis-simple-sidebars' );
 
 		}
 

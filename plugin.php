@@ -6,10 +6,10 @@ Description: Genesis Simple Sidebars allows you to easily create and use new sid
 Author: Nathan Rice
 Author URI: http://www.nathanrice.net/
 
-Text Domain: ss
+Text Domain: genesis-simple-sidebars
 Domain Path: /languages/
 
-Version: 2.0.1
+Version: 2.0.2
 
 License: GNU General Public License v2.0 (or later)
 License URI: http://www.opensource.org/licenses/gpl-license.php
@@ -45,7 +45,7 @@ function ss_activation_check() {
 function ss_deactivate( $genesis_version = '1.8.0', $wp_version = '3.3' ) {
 
 	deactivate_plugins( plugin_basename( __FILE__ ) );
-	wp_die( sprintf( __( 'Sorry, you cannot run Simple Sidebars without WordPress %s and <a href="%s">Genesis %s</a>, or greater.', 'ss' ), $wp_version, 'http://my.studiopress.com/?download_id=91046d629e74d525b3f2978e404e7ffa', $genesis_version ) );
+	wp_die( sprintf( __( 'Sorry, you cannot run Simple Sidebars without WordPress %s and <a href="%s">Genesis %s</a>, or greater.', 'genesis-simple-sidebars' ), $wp_version, 'http://my.studiopress.com/?download_id=91046d629e74d525b3f2978e404e7ffa', $genesis_version ) );
 
 }
 
@@ -64,7 +64,7 @@ function ss_genesis_init() {
 		add_action( 'admin_init', 'ss_deactivate', 10, 0 );
 
 	//* Load translations
-	load_plugin_textdomain( 'ss', false, 'genesis-simple-sidebars/languages' );
+	load_plugin_textdomain( 'genesis-simple-sidebars', false, 'genesis-simple-sidebars/languages' );
 
 	//* required hooks
 	add_action( 'get_header', 'ss_sidebars_init' );
