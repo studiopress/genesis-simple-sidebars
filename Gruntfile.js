@@ -27,14 +27,10 @@ module.exports = function(grunt) {
 				options: {
 					updateDomains: true
 				},
-				target: {
-					files: {
-						src: [
-							'*.php',
-							'lib/**/*.php'
-						]
-					}
-				}
+				src: [
+					'*.php',
+					'lib/**/*.php'
+				]
 			}
 		},
 
