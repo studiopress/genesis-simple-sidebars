@@ -7,7 +7,7 @@ Author: Nathan Rice
 Author URI: http://www.nathanrice.net/
 
 Text Domain: genesis-simple-sidebars
-Domain Path: /languages/
+Domain Path: /languages
 
 Version: 2.0.2
 
