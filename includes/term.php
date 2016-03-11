@@ -20,7 +20,7 @@ function ss_term_edit_init() {
 function ss_term_sidebar($tag, $taxonomy) {
 
 	//* Merge Defaults to prevent notices
-	$tag->meta = wp_parse_args( $tag->meta, array( '_ss_sidebar' => '', '_ss_sidebar_alt' => '' ) );
+	$tag->meta = wp_parse_args( $tag->meta, array( '_ss_sidebar' => '', '_ss_sidebar_alt' => '', '_ss_sidebar_header_right' => '' ) );
 
 	//* Pull custom sidebars
 	$_sidebars = stripslashes_deep( get_option( SS_SETTINGS_FIELD ) );
@@ -55,6 +55,26 @@ function ss_term_sidebar($tag, $taxonomy) {
 				<?php
 				foreach ( (array) $_sidebars as $id => $info ) {
 					printf( '<option value="%s" %s>%s</option>', esc_html( $id ), selected( $id, get_term_meta( $tag->term_id, '_ss_sidebar_alt', true ), false), esc_html( $info['name'] ) );
+				}
+				?>
+			</select>
+		</td>
+	</tr>
+<?php
+	}
+?>
+<?php
+	//* don't show the option if header right is not registered
+	if ( is_active_sidebar( 'header-right' ) ) {
+?>
+	<tr class="form-field">
+		<th scope="row" valign="top"><label for="genesis-meta[_ss_sidebar_header_right]"><?php _e( 'Header Right Sidebar', 'ss' ); ?></label></th>
+		<td>
+			<select name="genesis-meta[_ss_sidebar_header_right]" id="genesis-meta[_ss_sidebar_header_right]" style="padding-right: 10px;">
+				<option value=""><?php _e( 'Default', 'ss' ); ?></option>
+				<?php
+				foreach ( (array) $_sidebars as $id => $info ) {
+					printf( '<option value="%s" %s>%s</option>', esc_html( $id ), selected( $id, $tag->meta['_ss_sidebar_header_right'] , false), esc_html( $info['name'] ) );
 				}
 				?>
 			</select>

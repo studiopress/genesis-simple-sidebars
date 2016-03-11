@@ -124,8 +124,10 @@ function ss_sidebars_init() {
 
 	remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
 	remove_action( 'genesis_sidebar_alt', 'genesis_do_sidebar_alt' );
+	remove_action( 'genesis_header', 'genesis_do_header' );
 	add_action( 'genesis_sidebar', 'ss_do_sidebar' );
 	add_action( 'genesis_sidebar_alt', 'ss_do_sidebar_alt' );
+	add_action( 'genesis_header', 'ss_do_header' );
 
 }
 
@@ -154,6 +156,51 @@ function ss_do_sidebar_alt() {
 
 	if ( ! ss_do_one_sidebar( '_ss_sidebar_alt' ) )
 		genesis_do_sidebar_alt();
+
+}
+
+/**
+ * Display header right.
+ *
+ * Display custom sidebar if one exists, else display default header right sidebar.
+ *
+ * @since 0.9.0
+ */
+function ss_do_header() {
+
+	global $wp_registered_sidebars;
+
+	genesis_markup( array(
+		'html5'   => '<div %s>',
+		'xhtml'   => '<div id="title-area">',
+		'context' => 'title-area',
+	) );
+	do_action( 'genesis_site_title' );
+	do_action( 'genesis_site_description' );
+	echo '</div>';
+
+	if ( ( isset( $wp_registered_sidebars['header-right'] ) && is_active_sidebar( 'header-right' ) ) || has_action( 'genesis_header_right' ) ) {
+		genesis_markup( array(
+			'html5'   => '<aside %s>',
+			'xhtml'   => '<div class="widget-area header-widget-area">',
+			'context' => 'header-widget-area',
+		) );
+
+			do_action( 'genesis_header_right' );
+			add_filter( 'wp_nav_menu_args', 'genesis_header_menu_args' );
+			add_filter( 'wp_nav_menu', 'genesis_header_menu_wrap' );
+
+			if ( ! ss_do_one_sidebar( '_ss_sidebar_header_right' ) )
+				dynamic_sidebar( 'header-right' );
+
+			remove_filter( 'wp_nav_menu_args', 'genesis_header_menu_args' );
+			remove_filter( 'wp_nav_menu', 'genesis_header_menu_wrap' );
+
+		genesis_markup( array(
+			'html5' => '</aside>',
+			'xhtml' => '</div>',
+		) );
+	}
 
 }
 
