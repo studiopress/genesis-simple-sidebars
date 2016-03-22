@@ -22,7 +22,7 @@ screen_icon( 'themes' ); ?>
 	<tr class="form-field">
 		<th scope="row" valign="top"><label for="edit_sidebar[id]"><?php _e( 'ID', 'genesis-simple-sidebars' ); ?></label></th>
 		<td>
-		<input type="text" value="<?php echo esc_html( $_REQUEST['id'] ); ?>" size="40" disabled="disabled" />
+		<input type="text" value="<?php echo esc_html( $_REQUEST['id'] ); ?>" size="40" readonly />
 		<input name="edit_sidebar[id]" id="edit_sidebar[id]" type="hidden" value="<?php echo esc_html( $_REQUEST['id'] ); ?>" size="40" />
 		<p class="description"><?php _e( 'The unique ID is used to register the sidebar widget area (cannot be changed)', 'genesis-simple-sidebars' ); ?></p></td>
 	</tr>
