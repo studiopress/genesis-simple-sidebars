@@ -37,7 +37,7 @@ function ss_term_sidebar($tag, $taxonomy) {
 				<option value=""><?php _e( 'Default', 'genesis-simple-sidebars' ); ?></option>
 				<?php
 				foreach ( (array) $_sidebars as $id => $info ) {
-					printf( '<option value="%s" %s>%s</option>', esc_html( $id ), selected( $id, $tag->meta['_ss_sidebar'] , false), esc_html( $info['name'] ) );
+					printf( '<option value="%s" %s>%s</option>', esc_html( $id ), selected( $id, get_term_meta( $tag->term_id, '_ss_sidebar', true ), false), esc_html( $info['name'] ) );
 				}
 				?>
 			</select>
@@ -54,7 +54,7 @@ function ss_term_sidebar($tag, $taxonomy) {
 				<option value=""><?php _e( 'Default', 'genesis-simple-sidebars' ); ?></option>
 				<?php
 				foreach ( (array) $_sidebars as $id => $info ) {
-					printf( '<option value="%s" %s>%s</option>', esc_html( $id ), selected( $id, $tag->meta['_ss_sidebar_alt'] , false), esc_html( $info['name'] ) );
+					printf( '<option value="%s" %s>%s</option>', esc_html( $id ), selected( $id, get_term_meta( $tag->term_id, '_ss_sidebar_alt', true ), false), esc_html( $info['name'] ) );
 				}
 				?>
 			</select>
