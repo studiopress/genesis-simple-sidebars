@@ -9,7 +9,7 @@ Author URI: http://www.nathanrice.net/
 Text Domain: genesis-simple-sidebars
 Domain Path: /languages/
 
-Version: 2.0.2
+Version: 2.0.3
 
 License: GNU General Public License v2.0 (or later)
 License URI: http://www.opensource.org/licenses/gpl-license.php
@@ -100,6 +100,10 @@ function ss_register_sidebars() {
 
 	//* Cycle through created sidebars, register them as widget areas
 	foreach ( (array) $_sidebars as $id => $info ) {
+
+		if ( ! isset( $info['name'] ) || ! isset( $info['description'] ) ) {
+			continue;
+		}
 
 		genesis_register_sidebar( array(
 			'name'        => esc_html( $info['name'] ),

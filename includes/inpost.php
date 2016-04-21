@@ -6,12 +6,6 @@ add_action('admin_menu', 'ss_add_inpost_metabox');
  */
 function ss_add_inpost_metabox() {
 
-	global $wp_registered_sidebars;
-
-	if( ! array_key_exists( 'sidebar', $wp_registered_sidebars ) && ! array_key_exists( 'sidebar-alt', $wp_registered_sidebars ) ){
-		return;
-	}
-	
 	foreach ( (array) get_post_types( array( 'public' => true ) ) as $type ) {
 
 		if ( post_type_supports( $type, 'genesis-simple-sidebars' ) || $type == 'post' || $type == 'page' ) {
@@ -86,8 +80,8 @@ function ss_inpost_metabox_save( $post_id, $post ) {
 		return $post->ID;
 
 	$_sidebars = array(
-		'_ss_sidebar'     => $_POST['_ss_sidebar'],
-		'_ss_sidebar_alt' => $_POST['_ss_sidebar_alt'],
+		'_ss_sidebar'     => isset( $_POST['_ss_sidebar'] ) ? $_POST['_ss_sidebar'] : '',
+		'_ss_sidebar_alt' => isset( $_POST['_ss_sidebar_alt'] ) ? $_POST['_ss_sidebar_alt'] : '',
 	);
 
 	//* store the custom fields
