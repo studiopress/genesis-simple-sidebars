@@ -101,6 +101,10 @@ function ss_register_sidebars() {
 	//* Cycle through created sidebars, register them as widget areas
 	foreach ( (array) $_sidebars as $id => $info ) {
 
+		if ( ! isset( $info['name'] ) || ! isset( $info['description'] ) ) {
+			continue;
+		}
+
 		genesis_register_sidebar( array(
 			'name'        => esc_html( $info['name'] ),
 			'id'          => $id,

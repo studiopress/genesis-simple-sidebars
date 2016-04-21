@@ -2,8 +2,8 @@
 Contributors: nathanrice, wpmuguru, studiopress
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5553118
 Tags: hooks, genesis, genesiswp, studiopress
-Requires at least: 4.4.2
-Tested up to: 4.4.2
+Requires at least: 3.6
+Tested up to: 4.5
 Stable tag: 2.0.3
 
 This plugin allows you to create multiple, dynamic widget areas, and assign those widget areas to sidebar locations within the Genesis Framework on a per post, per page, or per tag/category archive basis.
@@ -37,9 +37,12 @@ Not in the way you're probably thinking. The markup surrounding the widget area 
 
 == Changelog ==
 
-= 2.0.3 =
+= 2.0.4 =
 * Update for WordPress 4.4+ and Genesis 2.2.7+
 * DO NOT upgrade to 2.0.3 unless you are running WordPress 4.4+ AND Genesis 2.2.7+
+
+= 2.0.3 =
+* Fix warnings and notices
 
 = 2.0.2 =
 * Change text domain, update POT file.

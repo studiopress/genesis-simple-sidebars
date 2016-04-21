@@ -80,8 +80,8 @@ function ss_inpost_metabox_save( $post_id, $post ) {
 		return $post->ID;
 
 	$_sidebars = array(
-		'_ss_sidebar'     => $_POST['_ss_sidebar'],
-		'_ss_sidebar_alt' => $_POST['_ss_sidebar_alt'],
+		'_ss_sidebar'     => isset( $_POST['_ss_sidebar'] ) ? $_POST['_ss_sidebar'] : '',
+		'_ss_sidebar_alt' => isset( $_POST['_ss_sidebar_alt'] ) ? $_POST['_ss_sidebar_alt'] : '',
 	);
 
 	//* store the custom fields
