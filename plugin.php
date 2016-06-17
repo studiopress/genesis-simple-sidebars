@@ -9,7 +9,7 @@ Author URI: http://www.nathanrice.net/
 Text Domain: genesis-simple-sidebars
 Domain Path: /languages
 
-Version: 2.0.3
+Version: 2.0.4
 
 License: GNU General Public License v2.0 (or later)
 License URI: http://www.opensource.org/licenses/gpl-license.php
@@ -30,8 +30,8 @@ register_activation_hook( __FILE__, 'ss_activation_check' );
  */
 function ss_activation_check() {
 
-	if ( ! defined( 'PARENT_THEME_VERSION' ) || ! version_compare( PARENT_THEME_VERSION, '2.2.7', '>=' ) )
-		ss_deactivate( '2.2.7', '4.4.2' );
+	if ( ! defined( 'PARENT_THEME_VERSION' ) || ! version_compare( PARENT_THEME_VERSION, '2.3.0', '>=' ) )
+		ss_deactivate( '2.3.0', '4.4.2' );
 
 }
 
@@ -42,7 +42,7 @@ function ss_activation_check() {
  *
  * @since 1.0.0
  */
-function ss_deactivate( $genesis_version = '2.2.7', $wp_version = '4.4.2' ) {
+function ss_deactivate( $genesis_version = '2.3.0', $wp_version = '4.4.2' ) {
 
 	deactivate_plugins( plugin_basename( __FILE__ ) );
 	wp_die( sprintf( __( 'Sorry, you cannot run Simple Sidebars without WordPress %s and <a href="%s">Genesis %s</a>, or greater.', 'genesis-simple-sidebars' ), $wp_version, 'http://my.studiopress.com/?download_id=91046d629e74d525b3f2978e404e7ffa', $genesis_version ) );
