@@ -9,7 +9,7 @@ Author URI: http://www.nathanrice.net/
 Text Domain: genesis-simple-sidebars
 Domain Path: /languages
 
-Version: 2.0.3
+Version: 2.0.2
 
 License: GNU General Public License v2.0 (or later)
 License URI: http://www.opensource.org/licenses/gpl-license.php
@@ -30,8 +30,8 @@ register_activation_hook( __FILE__, 'ss_activation_check' );
  */
 function ss_activation_check() {
 
-	if ( ! defined( 'PARENT_THEME_VERSION' ) || ! version_compare( PARENT_THEME_VERSION, '2.2.7', '>=' ) )
-		ss_deactivate( '2.2.7', '4.4.2' );
+	if ( ! defined( 'PARENT_THEME_VERSION' ) || ! version_compare( PARENT_THEME_VERSION, '2.0.0', '>=' ) )
+		ss_deactivate( '2.0.0', '3.6' );
 
 }
 
@@ -42,7 +42,7 @@ function ss_activation_check() {
  *
  * @since 1.0.0
  */
-function ss_deactivate( $genesis_version = '2.2.7', $wp_version = '4.4.2' ) {
+function ss_deactivate( $genesis_version = '1.8.0', $wp_version = '3.3' ) {
 
 	deactivate_plugins( plugin_basename( __FILE__ ) );
 	wp_die( sprintf( __( 'Sorry, you cannot run Simple Sidebars without WordPress %s and <a href="%s">Genesis %s</a>, or greater.', 'genesis-simple-sidebars' ), $wp_version, 'http://my.studiopress.com/?download_id=91046d629e74d525b3f2978e404e7ffa', $genesis_version ) );
@@ -169,19 +169,37 @@ function ss_do_sidebar_alt() {
  */
 function ss_do_one_sidebar( $sidebar_key = '_ss_sidebar' ) {
 
+	static $taxonomies = null;
+
 	if ( is_singular() && $sidebar_key = genesis_get_custom_field( $sidebar_key ) ) {
-		if ( dynamic_sidebar( $sidebar_key ) ) {
-			return true;
-		}
+		if ( dynamic_sidebar( $sidebar_key ) ) return true;
 	}
 
-	if ( is_tax() || is_category() || is_tag() ) {
+	if ( is_category() ) {
+		$term = get_term( get_query_var( 'cat' ), 'category' );
+		if ( isset( $term->meta[$sidebar_key] ) && dynamic_sidebar( $term->meta[$sidebar_key] ) ) return true;
+	}
 
-		if ( $sidebar_key = get_term_meta( get_queried_object()->term_id, $sidebar_key, true ) ) {
-			dynamic_sidebar( $sidebar_key );
-			return true;
+	if ( is_tag() ) {
+		$term = get_term( get_query_var( 'tag_id' ), 'post_tag' );
+		if ( isset( $term->meta[$sidebar_key] ) && dynamic_sidebar( $term->meta[$sidebar_key] ) ) return true;
+	}
+
+	if ( is_tax() ) {
+		if ( null === $taxonomies )
+			$taxonomies = ss_get_taxonomies();
+
+		foreach ( $taxonomies as $tax ) {
+			if ( 'post_tag' == $tax || 'category' == $tax )
+				continue;
+
+			if ( is_tax( $tax ) ) {
+				$obj = get_queried_object();
+				$term = get_term( $obj->term_id, $tax );
+				if ( isset( $term->meta[$sidebar_key] ) && dynamic_sidebar( $term->meta[$sidebar_key] ) ) return true;
+				break;
+			}
 		}
-
 	}
 
 	return false;
