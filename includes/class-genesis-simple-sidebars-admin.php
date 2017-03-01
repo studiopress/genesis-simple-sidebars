@@ -14,6 +14,25 @@
 class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 
 	/**
+	 * Settings field.
+	 *
+	 * @since 2.1.0
+	 */
+	public $settings_field;
+
+	/**
+	 * Constructor.
+	 */
+	public function __construct() {
+
+		$this->settings_field = Genesis_Simple_Sidebars()->settings_field;
+
+		// For backward compatibility
+		define( 'SS_SETTINGS_FIELD', $this->settings_field );
+
+	}
+
+	/**
 	 * Create an admin menu item and settings page.
 	 *
 	 * @since 1.0.0
@@ -22,7 +41,7 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 	 *
 	 * @see Genesis_Admin_Import_Export::actions() Handle creating, editing, and deleting sidebars.
 	 */
-	public function __construct() {
+	public function admin_menu() {
 
 		$page_id = 'simple-sidebars';
 
@@ -34,14 +53,12 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 			)
 		);
 
-		//* Empty, as we'll be building the page manually
+		// Empty, as we'll be building the page manually
 		$page_ops = array();
 
-		$settings_field = SS_SETTINGS_FIELD;
+		$this->create( $page_id, $menu_ops, $page_ops, $this->settings_field );
 
-		$this->create( $page_id, $menu_ops, $page_ops, $settings_field );
-
-		//* Simpe Sidebar actions (create, edit, or delete)
+		// Simpe Sidebar actions (create, edit, or delete)
 		add_action( 'admin_init', array( $this, 'actions' ) );
 
 	}
@@ -56,14 +73,14 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 	 */
 	public function admin() {
 
-		$_sidebars = get_option( $this->settings_field );
-
 		echo '<div class="wrap">';
 
-			if ( isset( $_REQUEST['action'] ) && 'edit' == $_REQUEST['action'] )
-				require_once( SS_PLUGIN_DIR . '/includes/views/edit.php' );
-			else
-				require_once( SS_PLUGIN_DIR . '/includes/views/main.php' );
+			if ( isset( $_REQUEST['action'] ) && 'edit' == $_REQUEST['action'] ) {
+				require_once( Genesis_Simple_Sidebars()->plugin_dir_path . '/includes/views/admin-edit.php' );
+			}
+			else {
+				require_once( Genesis_Simple_Sidebars()->plugin_dir_path . '/includes/views/admin-main.php' );
+			}
 
 		echo '</div>';
 
@@ -129,8 +146,9 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 	 */
 	public function actions() {
 
-		if ( ! genesis_is_menu_page( 'simple-sidebars' ) )
+		if ( ! genesis_is_menu_page( 'simple-sidebars' ) ) {
 			return;
+		}
 
 		/**
 		 * This section handles the data if a new sidebar is created
@@ -164,8 +182,9 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 	 */
 	public function notices() {
 
-		if ( ! genesis_is_menu_page( 'simple-sidebars' ) )
+		if ( ! genesis_is_menu_page( 'simple-sidebars' ) ) {
 			return;
+		}
 
 		$pattern = '<div id="message" class="updated"><p><strong>%s</strong></p></div>';
 
@@ -201,17 +220,19 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 			exit;
 		}
 
-		//* nonce verification
+		// nonce verification
 		check_admin_referer( 'simple-sidebars-action_create-sidebar' );
 
-		//* WP changes a numeric sidebar id to sidebar-id which makes it inaccessible to the user
-		if ( is_numeric( $args['id'] ) )
+		// WP changes a numeric sidebar id to sidebar-id which makes it inaccessible to the user
+		if ( is_numeric( $args['id'] ) ) {
 			$args['id'] = sanitize_title_with_dashes( $args['name'] );
+		}
 
-		$db = (array) get_option( SS_SETTINGS_FIELD );
+		$db = (array) get_option( $this->settings_field );
+
 		$new = array(
 			sanitize_title_with_dashes( $args['id'] ) => array(
-				'name' => esc_html( $args['name'] ),
+				'name'        => esc_html( $args['name'] ),
 				'description' => esc_html( $args['description'] )
 			)
 		);
@@ -223,7 +244,7 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 
 		$_sidebars = wp_parse_args( $new, $db );
 
-		update_option( SS_SETTINGS_FIELD, $_sidebars );
+		update_option( $this->settings_field, $_sidebars );
 		wp_redirect( admin_url( 'admin.php?page=simple-sidebars&created=true' ) );
 		exit;
 
@@ -242,14 +263,15 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 			exit;
 		}
 
-		//* nonce verification
+		// nonce verification
 		check_admin_referer( 'simple-sidebars-action_edit-sidebar' );
 
-		//* WP changes a numeric sidebar id to sidebar-id which makes it inaccessible to the user
-		if ( is_numeric( $args['id'] ) )
+		// WP changes a numeric sidebar id to sidebar-id which makes it inaccessible to the user
+		if ( is_numeric( $args['id'] ) ) {
 			$args['id'] = sanitize_title_with_dashes( $args['name'] );
+		}
 
-		$db = (array) get_option( SS_SETTINGS_FIELD );
+		$db = (array) get_option( $this->settings_field );
 		$new = array(
 			sanitize_title_with_dashes( $args['id'] ) => array(
 				'name' => esc_html( $args['name'] ),
@@ -264,7 +286,7 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 
 		$_sidebars = wp_parse_args( $new, $db );
 
-		update_option( SS_SETTINGS_FIELD, $_sidebars );
+		update_option( $this->settings_field, $_sidebars );
 		wp_redirect( admin_url( 'admin.php?page=simple-sidebars&edited=true' ) );
 		exit;
 
@@ -283,10 +305,10 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 			exit;
 		}
 
-		//* nonce verification
+		// nonce verification
 		check_admin_referer( 'simple-sidebars-action_delete-sidebar' );
 
-		$_sidebars = (array) get_option( SS_SETTINGS_FIELD );
+		$_sidebars = (array) get_option( $this->settings_field );
 
 		if ( ! isset( $_sidebars[$id] ) ) {
 			wp_die( $this->error( 4 ) );
@@ -295,7 +317,7 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 
 		unset( $_sidebars[$id] );
 
-		update_option( SS_SETTINGS_FIELD, $_sidebars );
+		update_option( $this->settings_field, $_sidebars );
 		wp_redirect( admin_url( 'admin.php?page=simple-sidebars&deleted=true' ) );
 		exit;
 
@@ -333,19 +355,5 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		}
 
 	}
-
-}
-
-add_action( 'genesis_admin_menu', 'simplesidebars_settings_menu' );
-/**
- * Instantiate the class to create the menu.
- *
- * @since 1.0.0
- */
-function simplesidebars_settings_menu() {
-
-	global $_genesis_simple_sidebars_admin;
-	
-	$_genesis_simple_sidebars_admin = new Genesis_Simple_Sidebars_Admin;
 
 }
