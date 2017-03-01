@@ -51,6 +51,7 @@ class Genesis_Simple_Sidebars_Entry {
 		}
 
 		$data = wp_parse_args( $_POST['genesis_simple_sidebars'], array(
+			'_ss_header'      => '',
 			'_ss_sidebar'     => '',
 			'_ss_sidebar_alt' => '',
 		) );

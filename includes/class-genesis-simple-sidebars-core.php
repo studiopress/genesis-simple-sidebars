@@ -65,10 +65,36 @@ class Genesis_Simple_Sidebars_Core {
 	 */
 	public function swap_sidebars() {
 
+		// Header
+		if ( is_registered_sidebar( 'header-right' ) ) {
+			global $wp_registered_sidebars;
+			$wp_registered_sidebars['ss-header-right-temp'] = $wp_registered_sidebars['header-right'];
+			unset( $wp_registered_sidebars['header-right'] );
+			add_action( 'genesis_header_right', array( $this, 'do_header_right' ) );
+		}
+
+		// Sidebars
 		remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
 		remove_action( 'genesis_sidebar_alt', 'genesis_do_sidebar_alt' );
 		add_action( 'genesis_sidebar', array( $this, 'do_primary_sidebar' ) );
 		add_action( 'genesis_sidebar_alt', array( $this, 'do_secondary_sidebar' ) );
+
+	}
+
+	/**
+	 * Output custom header widget area, if one is set. Otherwise output default.
+	 *
+	 * @since 2.1.0
+	 */
+	public function do_header_right() {
+
+		global $wp_registered_sidebars;
+
+		if ( ! $this->do_sidebar( '_ss_header' ) ) {
+			$wp_registered_sidebars['header-right'] = $wp_registered_sidebars['ss-header-right-temp'];
+		}
+
+		unset( $wp_registered_sidebars['ss-header-right-temp'] );
 
 	}
 
