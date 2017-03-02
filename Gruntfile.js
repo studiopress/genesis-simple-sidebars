@@ -20,17 +20,21 @@ module.exports = function(grunt) {
 
 
 		// I18n
-
+		
 		// Add text domain as last argument of i18n functions
 		addtextdomain: {
 			php: {
 				options: {
 					updateDomains: true
 				},
-				src: [
-					'*.php',
-					'lib/**/*.php'
-				]
+				target: {
+					files: {
+						src: [
+							'*.php',
+							'lib/**/*.php'
+						]
+					}
+				}
 			}
 		},
 
@@ -43,15 +47,15 @@ module.exports = function(grunt) {
 					'_e:1,2d',
 					'_x:1,2c,3d',
 					'_ex:1,2c,3d',
-					'_n:1,2,4d',
+					'_n:1,2,4d', 
 					'_nx:1,2,4c,5d',
 					'_n_noop:1,2,3d',
 					'_nx_noop:1,2,3c,4d',
-					'esc_attr__:1,2d',
+					'esc_attr__:1,2d', 
 					'esc_html__:1,2d',
-					'esc_attr_e:1,2d',
+					'esc_attr_e:1,2d', 
 					'esc_html_e:1,2d',
-					'esc_attr_x:1,2c,3d',
+					'esc_attr_x:1,2c,3d', 
 					'esc_html_x:1,2c,3d'
 				]
 			},
@@ -75,7 +79,7 @@ module.exports = function(grunt) {
 						pot.headers['last-translator']        = 'StudioPress <translations@studiopress.com>';
 						pot.headers['language-team']          = 'English <translations@studiopress.com>';
 						pot.headers['plural-forms']           = 'nplurals=2; plural=n != 1;';
-						pot.headers['x-generator']            = 'grunt-wp-i18n';
+						pot.headers['x-generator']            = 'grunt-wp-i18n 0.4.4';
 						pot.headers['x-poedit-basepath']      = '.';
 						pot.headers['x-poedit-language']      = 'English';
 						pot.headers['x-poedit-country']       = 'UNITED STATES';

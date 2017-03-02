@@ -1,5 +1,4 @@
-<?php screen_icon( 'themes' ); ?>
-<h2><?php _e( 'Genesis - Simple Sidebars', 'genesis-simple-sidebars' ); ?></h2>
+<h1><?php _e( 'Genesis - Simple Sidebars', 'genesis-simple-sidebars' ); ?></h1>
 
 <div id="col-container">
 
