@@ -223,8 +223,8 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		// nonce verification
 		check_admin_referer( 'simple-sidebars-action_create-sidebar' );
 
-		// WP changes a numeric sidebar id to sidebar-id which makes it inaccessible to the user
-		if ( is_numeric( $args['id'] ) ) {
+		// Change empty or numeric IDs to the name, lowercased and separated by dashes.
+		if ( empty( $args['id'] ) || is_numeric( $args['id'] ) ) {
 			$args['id'] = sanitize_title_with_dashes( $args['name'] );
 		}
 
