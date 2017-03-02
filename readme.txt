@@ -39,6 +39,11 @@ Not in the way you're probably thinking. The markup surrounding the widget area 
 
 = 2.1.0 =
 * Rewrite based on new plugin boilerplate.
+* Make ID field readonly, rather than disabled.
+* Add header widget area support.
+* Allow for empty ID (auto-generate ID from name).
+* Allow for only alphanumeric characters in ID.
+* Use WordPress native term meta functions.
 
 = 2.0.3 =
 * Fix warnings and notices.
