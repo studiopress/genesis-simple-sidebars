@@ -225,19 +225,22 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 
 		// Change empty or numeric IDs to the name, lowercased and separated by dashes.
 		if ( empty( $args['id'] ) || is_numeric( $args['id'] ) ) {
-			$args['id'] = sanitize_title_with_dashes( $args['name'] );
+			$args['id'] = $args['name'];
 		}
+
+		// Strip all but alphanumeric, sanitize with dashes.
+		$id = preg_replace( "/[^a-zA-Z0-9 -]+/", "", sanitize_title_with_dashes( $args['id'] ) );
 
 		$db = (array) get_option( $this->settings_field );
 
 		$new = array(
-			sanitize_title_with_dashes( $args['id'] ) => array(
+			$id => array(
 				'name'        => esc_html( $args['name'] ),
 				'description' => esc_html( $args['description'] )
-			)
+			),
 		);
 
-		if ( array_key_exists( $args['id'], $db ) ) {
+		if ( array_key_exists( $id, $db ) ) {
 			wp_die( $this->error( 2 ) );
 			exit;
 		}
@@ -266,15 +269,10 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		// nonce verification
 		check_admin_referer( 'simple-sidebars-action_edit-sidebar' );
 
-		// WP changes a numeric sidebar id to sidebar-id which makes it inaccessible to the user
-		if ( is_numeric( $args['id'] ) ) {
-			$args['id'] = sanitize_title_with_dashes( $args['name'] );
-		}
-
 		$db = (array) get_option( $this->settings_field );
 		$new = array(
-			sanitize_title_with_dashes( $args['id'] ) => array(
-				'name' => esc_html( $args['name'] ),
+			$args['id'] => array(
+				'name'        => esc_html( $args['name'] ),
 				'description' => esc_html( $args['description'] )
 			)
 		);
