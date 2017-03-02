@@ -215,7 +215,7 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 	 */
 	protected function create_sidebar( $args = array() ) {
 
-		if ( empty( $args['name'] ) || empty( $args['id'] ) ) {
+		if ( empty( $args['name'] ) ) {
 			wp_die( $this->error( 1 ) );
 			exit;
 		}
@@ -338,7 +338,7 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		switch( (int) $error ) {
 
 			case 1:
-				return __( 'Oops! Please choose a valid Name and ID for this sidebar', 'genesis-simple-sidebars' );
+				return __( 'Oops! Please choose a valid Name for this sidebar', 'genesis-simple-sidebars' );
 				break;
 			case 2:
 				return __( 'Oops! That sidebar ID already exists', 'genesis-simple-sidebars' );
