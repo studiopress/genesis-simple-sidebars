@@ -231,6 +231,9 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		// Strip all but alphanumeric, sanitize with dashes.
 		$id = preg_replace( "/[^a-zA-Z0-9 -]+/", "", sanitize_title_with_dashes( $args['id'] ) );
 
+		// Preface numeric IDs with 'sidebar-'.
+		$id = is_numeric( $id ) ? 'sidebar-' . $id : $id;
+
 		$db = (array) get_option( $this->settings_field );
 
 		$new = array(
