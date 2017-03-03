@@ -223,6 +223,8 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		// nonce verification
 		check_admin_referer( 'simple-sidebars-action_create-sidebar' );
 
+		$db = (array) get_option( $this->settings_field );
+
 		// Change empty or numeric IDs to the name, lowercased and separated by dashes.
 		if ( empty( $args['id'] ) || is_numeric( $args['id'] ) ) {
 			$args['id'] = $args['name'];
@@ -232,9 +234,15 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		$id = preg_replace( "/[^a-zA-Z0-9 -]+/", "", sanitize_title_with_dashes( $args['id'] ) );
 
 		// Preface numeric IDs with 'sidebar-'.
-		$id = is_numeric( $id ) ? 'sidebar-' . $id : $id;
+		$id = is_numeric( $id ) ? 'gss-sidebar-' . $id : $id;
 
-		$db = (array) get_option( $this->settings_field );
+		// If empty after all the sanitizing ...
+		if ( ! $id || is_registered_sidebar( $id ) ) {
+			$n = count( $db ) + 1;
+			do {
+				$id = 'gss-sidebar-' . $n++;
+			} while ( is_registered_sidebar( $id ) );
+		}
 
 		$new = array(
 			$id => array(
