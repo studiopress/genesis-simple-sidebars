@@ -35,8 +35,6 @@ class Genesis_Simple_Sidebars_Entry {
 
 		require_once( Genesis_Simple_Sidebars()->plugin_dir_path . 'includes/views/entry-metabox-content.php' );
 
-		print_r( get_post_meta( get_the_ID() ) );
-
 	}
 
 	/**
