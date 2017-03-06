@@ -76,7 +76,8 @@ class Genesis_Simple_Sidebars {
 
 		add_action( 'admin_notices', array( $this, 'requirements_notice' ) );
 
-		$this->load_plugin_textdomain();
+		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
+
 		$this->includes();
 		$this->instantiate();
 
@@ -104,7 +105,7 @@ class Genesis_Simple_Sidebars {
 	 * @since 2.1.0
 	 */
 	public function load_plugin_textdomain() {
-		load_plugin_textdomain( $this->plugin_textdomain, false, $this->plugin_dir_path . 'languages/' );
+		load_plugin_textdomain( $this->plugin_textdomain, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
 	/**
