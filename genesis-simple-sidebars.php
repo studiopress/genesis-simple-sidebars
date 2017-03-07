@@ -86,7 +86,7 @@ class Genesis_Simple_Sidebars {
 	/**
 	 * Show admin notice if minimum requirements aren't met.
 	 *
-	 * @since 2.2.0
+	 * @since 2.1.0
 	 */
 	public function requirements_notice() {
 
