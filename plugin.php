@@ -5,8 +5,8 @@ Plugin URI: http://www.studiopress.com/plugins/simple-sidebars
 
 Description: Genesis Simple Sidebars allows you to easily create and use new sidebar widget areas.
 
-Author: Nathan Rice
-Author URI: http://www.nathanrice.net/
+Author: StudioPress
+Author URI: http://www.studiopress.com/
 
 Version: 2.1.0
 

@@ -22,8 +22,18 @@ class Genesis_Simple_Sidebars_Core {
 	 */
 	public function init() {
 
+		add_action( 'after_setup_theme', array( $this, 'backward_compatibility' ) );
 		add_action( 'widgets_init', array( $this, 'register_sidebars' ) );
 		add_filter( 'sidebars_widgets', array( $this, 'sidebars_widgets_filter' ) );
+
+	}
+
+	public function backward_compatibility() {
+
+		remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
+		add_action( 'genesis_sidebar', 'ss_do_sidebar' );
+		remove_action( 'genesis_sidebar_alt', 'genesis_do_sidebar_alt' );
+		add_action( 'genesis_sidebar_alt', 'ss_do_sidebar_alt' );
 
 	}
 
@@ -65,23 +75,27 @@ class Genesis_Simple_Sidebars_Core {
 	 */
 	public function sidebars_widgets_filter( $widgets ) {
 
-		$sidebars = array(
-			'sidebar'      => '_ss_sidebar',
-			'sidebar-alt'  => '_ss_sidebar_alt',
-			'header-right' => '_ss_header',
-		);
+		$sidebars = array();
 
-		/**
-		 * Swappable widget areas.
-		 *
-		 * An array of original widget area => GSS key for new sidebar. Can be used to add or remove widget areas from being
-		 * swappable in the Genesis Simple Sidebars admin.
-		 *
-		 * @since 2.1.0
-		 *
-		 * @param array $sidebars Array of widget areas that can be swapped, with the keys used to find the ID of the new widget area to swap in.
-		 */
-		$sidebars = apply_filters( 'genesis_simple_sidebars_widget_areas', $sidebars );
+		if ( is_singular() ) {
+
+			$sidebars = array(
+				'sidebar'      => genesis_get_custom_field( '_ss_sidebar' ),
+				'sidebar-alt'  => genesis_get_custom_field( '_ss_sidebar_alt' ),
+				'header-right' => genesis_get_custom_field( '_ss_header' ),
+			);
+
+		}
+
+		if ( is_tax() || is_category() || is_tag() ) {
+
+			$sidebars = array(
+				'sidebar'      => get_term_meta( get_queried_object()->term_id, '_ss_sidebar', true ),
+				'sidebar-alt'  => get_term_meta( get_queried_object()->term_id, '_ss_sidebar_alt', true ),
+				'header-right' => get_term_meta( get_queried_object()->term_id, '_ss_header', true ),
+			);
+
+		}
 
 		$widgets = $this->swap_widgets( $widgets, $sidebars );
 
@@ -100,30 +114,14 @@ class Genesis_Simple_Sidebars_Core {
 			return $widgets;
 		}
 
-		foreach ( (array) $sidebars as $old_sidebar => $new_sidebar_key ) {
+		foreach ( (array) $sidebars as $old_sidebar => $new_sidebar ) {
 
 			if ( ! is_registered_sidebar( $old_sidebar ) ) {
 				continue;
 			}
 
-			if ( is_singular() ) {
-
-				$new_sidebar = genesis_get_custom_field( $new_sidebar_key );
-
-				if ( $new_sidebar && ! empty( $widgets[ $new_sidebar ] ) ) {
-					$widgets[ $old_sidebar ] = $widgets[ $new_sidebar ];
-				}
-
-			}
-
-			if ( is_tax() || is_category() || is_tag() ) {
-
-				$new_sidebar = get_term_meta( get_queried_object()->term_id, $new_sidebar_key, true );
-
-				if ( $new_sidebar && ! empty( $widgets[ $new_sidebar ] ) ) {
-					$widgets[ $old_sidebar ] = $widgets[ $new_sidebar ];
-				}
-
+			if ( $new_sidebar && ! empty( $widgets[ $new_sidebar ] ) ) {
+				$widgets[ $old_sidebar ] = $widgets[ $new_sidebar ];
 			}
 
 		}

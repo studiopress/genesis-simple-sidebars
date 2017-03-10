@@ -56,28 +56,20 @@ function ss_sidebars_init() {
  * @since 0.9.0
  * @deprecated 2.1.0
  */
-function ss_do_sidebar() {
-	_deprecated_function( __FUNCTION__, '2.1.0' );
-}
+function ss_do_one_sidebar( $sidebar_key = '' ) {
 
-/**
- * Deprecated.
- *
- * @since 0.9.0
- * @deprecated 2.1.0
- */
-function ss_do_sidebar_alt() {
 	_deprecated_function( __FUNCTION__, '2.1.0' );
-}
 
-/**
- * Deprecated.
- *
- * @since 0.9.0
- * @deprecated 2.1.0
- */
-function ss_do_one_sidebar() {
-	_deprecated_function( __FUNCTION__, '2.1.0' );
+	if ( '_ss_sidebar' == $sidebar_key ) {
+		genesis_do_sidebar();
+		return true;
+	}
+
+	if ( '_ss_sidebar_alt' == $sidebar_key ) {
+		genesis_do_sidebar_alt();
+		return true;
+	}
+
 }
 
 /**

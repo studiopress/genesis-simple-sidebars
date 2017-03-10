@@ -117,7 +117,7 @@ class Genesis_Simple_Sidebars {
 	 */
 	public function includes() {
 
-		//require_once( $this->plugin_dir_path . 'includes/functions.php' );
+		require_once( $this->plugin_dir_path . 'includes/functions.php' );
 		require_once( $this->plugin_dir_path . 'includes/deprecated.php' );
 
 	}
