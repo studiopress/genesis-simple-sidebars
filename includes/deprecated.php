@@ -58,7 +58,7 @@ function ss_sidebars_init() {
  */
 function ss_do_one_sidebar( $sidebar_key = '' ) {
 
-	_deprecated_function( __FUNCTION__, '2.1.0' );
+	_deprecated_function( __FUNCTION__, '2.1.0', __( 'dynamic_sidebar() with sidebars_widget filter', 'genesis-simple-sidebars' ) );
 
 	if ( '_ss_sidebar' == $sidebar_key ) {
 		genesis_do_sidebar();
