@@ -28,6 +28,11 @@ class Genesis_Simple_Sidebars_Core {
 
 	}
 
+	/**
+	 * For backward compatibility, we need to use old functions to hook in sidebar output.
+	 *
+	 * @since 2.1.0
+	 */
 	public function backward_compatibility() {
 
 		remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
