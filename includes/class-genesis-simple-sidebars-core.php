@@ -92,6 +92,18 @@ class Genesis_Simple_Sidebars_Core {
 
 		}
 
+		if ( is_home() ) {
+
+			$id = get_option('page_for_posts');
+
+			$sidebars = array(
+				'sidebar'      => genesis_get_custom_field( '_ss_sidebar', $id ),
+				'sidebar-alt'  => genesis_get_custom_field( '_ss_sidebar_alt', $id ),
+				'header-right' => genesis_get_custom_field( '_ss_header', $id ),
+			);
+
+		}
+
 		if ( is_tax() || is_category() || is_tag() ) {
 
 			$sidebars = array(
