@@ -4,7 +4,7 @@ class Genesis_Simple_Sidebars_Term {
 
 	public function init() {
 
-		add_action( 'init', array( $this, 'add_term_fields' ) );
+		add_action( 'init', array( $this, 'add_term_fields' ), 12 );
 
 	}
 
