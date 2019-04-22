@@ -49,8 +49,8 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 			'submenu' => array(
 				'parent_slug' => 'genesis',
 				'page_title'  => __( 'Genesis - Simple Sidebars', 'genesis-simple-sidebars' ),
-				'menu_title'  => __( 'Simple Sidebars', 'genesis-simple-sidebars' )
-			)
+				'menu_title'  => __( 'Simple Sidebars', 'genesis-simple-sidebars' ),
+			),
 		);
 
 		// Empty, as we'll be building the page manually
@@ -69,18 +69,16 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 	 * Echoes out HTML.
 	 *
 	 * @since 1.0.0
-	 *
 	 */
 	public function admin() {
 
 		echo '<div class="wrap">';
 
-			if ( isset( $_REQUEST['action'] ) && 'edit' == $_REQUEST['action'] ) {
-				require_once( Genesis_Simple_Sidebars()->plugin_dir_path . '/includes/views/admin-edit.php' );
-			}
-			else {
-				require_once( Genesis_Simple_Sidebars()->plugin_dir_path . '/includes/views/admin-main.php' );
-			}
+		if ( isset( $_REQUEST['action'] ) && 'edit' === $_REQUEST['action'] ) {
+			require_once GENESIS_SIMPLE_SIDEBARS_PLUGIN_DIR . '/includes/views/admin-edit.php';
+		} else {
+			require_once GENESIS_SIMPLE_SIDEBARS_PLUGIN_DIR . '/includes/views/admin-main.php';
+		}
 
 		echo '</div>';
 
@@ -92,7 +90,6 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 	 * Displays table rows of sidebars for viewing and editing on the main admin page.
 	 *
 	 * @since 1.0.0
-	 *
 	 */
 	public function table_rows() {
 
@@ -106,32 +103,40 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 
 			$is_editable = isset( $info['editable'] ) && $info['editable'] ? true : false;
 
-		?>
+			?>
 
-			<tr <?php if ( $alt ) { echo 'class="alternate"'; $alt = false; } else { $alt = true; } ?>>
+			<tr
+			<?php
+			if ( $alt ) {
+				echo 'class="alternate"';
+				$alt = false;
+			} else {
+				$alt = true; }
+			?>
+			>
 				<td class="name column-name">
 					<?php
-						if ( $is_editable ) {
-							printf( '<a class="row-title" href="%s" title="Edit %s">%s</a>', admin_url('admin.php?page=simple-sidebars&amp;action=edit&amp;id=' . esc_html( $id ) ), esc_html( $info['name'] ), esc_html( $info['name'] ) );
-						} else {
-							printf( '<strong class="row-title">%s</strong>', esc_html( $info['name'] ) );
-						}
+					if ( $is_editable ) {
+						printf( '<a class="row-title" href="%s" title="Edit %s">%s</a>', admin_url( 'admin.php?page=simple-sidebars&amp;action=edit&amp;id=' . esc_html( $id ) ), esc_html( $info['name'] ), esc_html( $info['name'] ) );
+					} else {
+						printf( '<strong class="row-title">%s</strong>', esc_html( $info['name'] ) );
+					}
 					?>
 
 					<?php if ( $is_editable ) : ?>
 					<br />
 					<div class="row-actions">
-						<span class="edit"><a href="<?php echo admin_url('admin.php?page=simple-sidebars&amp;action=edit&amp;id=' . esc_html( $id ) ); ?>"><?php _e('Edit', 'genesis-simple-sidebars'); ?></a> | </span>
-						<span class="delete"><a class="delete-tag" href="<?php echo wp_nonce_url( admin_url( 'admin.php?page=simple-sidebars&amp;action=delete&amp;id=' . esc_html( $id ) ), 'simple-sidebars-action_delete-sidebar' ); ?>"><?php _e('Delete', 'genesis-simple-sidebars'); ?></a></span>
+						<span class="edit"><a href="<?php echo admin_url( 'admin.php?page=simple-sidebars&amp;action=edit&amp;id=' . esc_html( $id ) ); ?>"><?php _e( 'Edit', 'genesis-simple-sidebars' ); ?></a> | </span>
+						<span class="delete"><a class="delete-tag" href="<?php echo wp_nonce_url( admin_url( 'admin.php?page=simple-sidebars&amp;action=delete&amp;id=' . esc_html( $id ) ), 'simple-sidebars-action_delete-sidebar' ); ?>"><?php _e( 'Delete', 'genesis-simple-sidebars' ); ?></a></span>
 					</div>
 					<?php endif; ?>
 
 				</td>
 				<td class="slug column-slug"><?php echo esc_html( $id ); ?></td>
-				<td class="description column-description"><?php echo esc_html( $info['description'] )?></td>
+				<td class="description column-description"><?php echo esc_html( $info['description'] ); ?></td>
 			</tr>
 
-		<?php
+			<?php
 		endforeach;
 
 	}
@@ -142,7 +147,6 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 	 * Depending on what action was intended by the user, this method calls the appropriate action method.
 	 *
 	 * @since 1.0.0
-	 *
 	 */
 	public function actions() {
 
@@ -211,7 +215,6 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 	 * Create a sidebar.
 	 *
 	 * @since 1.0.0
-	 *
 	 */
 	protected function create_sidebar( $args = array() ) {
 
@@ -231,7 +234,7 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		}
 
 		// Strip all but alphanumeric, sanitize with dashes.
-		$id = preg_replace( "/[^a-zA-Z0-9 -]+/", "", sanitize_title_with_dashes( $args['id'] ) );
+		$id = preg_replace( '/[^a-zA-Z0-9 -]+/', '', sanitize_title_with_dashes( $args['id'] ) );
 
 		// Preface numeric IDs with 'sidebar-'.
 		$id = is_numeric( $id ) ? 'gss-sidebar-' . $id : $id;
@@ -247,7 +250,7 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		$new = array(
 			$id => array(
 				'name'        => esc_html( $args['name'] ),
-				'description' => esc_html( $args['description'] )
+				'description' => esc_html( $args['description'] ),
 			),
 		);
 
@@ -268,7 +271,6 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 	 * Edit a sidebar.
 	 *
 	 * @since 1.0.0
-	 *
 	 */
 	protected function edit_sidebar( $args = array() ) {
 
@@ -280,12 +282,12 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		// nonce verification
 		check_admin_referer( 'simple-sidebars-action_edit-sidebar' );
 
-		$db = (array) get_option( $this->settings_field );
+		$db  = (array) get_option( $this->settings_field );
 		$new = array(
 			$args['id'] => array(
 				'name'        => esc_html( $args['name'] ),
-				'description' => esc_html( $args['description'] )
-			)
+				'description' => esc_html( $args['description'] ),
+			),
 		);
 
 		if ( ! array_key_exists( $args['id'], $db ) ) {
@@ -305,7 +307,6 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 	 * Delete a sidebar.
 	 *
 	 * @since 1.0.0
-	 *
 	 */
 	protected function delete_sidebar( $id = '' ) {
 
@@ -319,12 +320,12 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 
 		$_sidebars = (array) get_option( $this->settings_field );
 
-		if ( ! isset( $_sidebars[$id] ) ) {
+		if ( ! isset( $_sidebars[ $id ] ) ) {
 			wp_die( $this->error( 4 ) );
 			exit;
 		}
 
-		unset( $_sidebars[$id] );
+		unset( $_sidebars[ $id ] );
 
 		update_option( $this->settings_field, $_sidebars );
 		wp_redirect( admin_url( 'admin.php?page=simple-sidebars&deleted=true' ) );
@@ -341,10 +342,11 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 	 */
 	protected function error( $error = false ) {
 
-		if ( ! $error )
+		if ( ! $error ) {
 			return false;
+		}
 
-		switch( (int) $error ) {
+		switch ( (int) $error ) {
 
 			case 1:
 				return __( 'Oops! Please choose a valid Name for this sidebar', 'genesis-simple-sidebars' );

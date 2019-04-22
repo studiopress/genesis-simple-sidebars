@@ -11,7 +11,7 @@
 			<option value=""><?php _e( 'Default', 'genesis-simple-sidebars' ); ?></option>
 			<?php
 			foreach ( (array) $sidebars as $id => $info ) {
-				printf( '<option value="%s" %s>%s</option>', esc_html( $id ), selected( $id, get_term_meta( $tag->term_id, '_ss_header', true ), false), esc_html( $info['name'] ) );
+				printf( '<option value="%s" %s>%s</option>', esc_html( $id ), selected( $id, get_term_meta( $tag->term_id, '_ss_header', true ), false ), esc_html( $info['name'] ) );
 			}
 			?>
 		</select>
@@ -26,7 +26,7 @@
 			<option value=""><?php _e( 'Default', 'genesis-simple-sidebars' ); ?></option>
 			<?php
 			foreach ( (array) $sidebars as $id => $info ) {
-				printf( '<option value="%s" %s>%s</option>', esc_html( $id ), selected( $id, get_term_meta( $tag->term_id, '_ss_sidebar', true ), false), esc_html( $info['name'] ) );
+				printf( '<option value="%s" %s>%s</option>', esc_html( $id ), selected( $id, get_term_meta( $tag->term_id, '_ss_sidebar', true ), false ), esc_html( $info['name'] ) );
 			}
 			?>
 		</select>
@@ -41,7 +41,7 @@
 			<option value=""><?php _e( 'Default', 'genesis-simple-sidebars' ); ?></option>
 			<?php
 			foreach ( (array) $sidebars as $id => $info ) {
-				printf( '<option value="%s" %s>%s</option>', esc_html( $id ), selected( $id, get_term_meta( $tag->term_id, '_ss_sidebar_alt', true ) , false), esc_html( $info['name'] ) );
+				printf( '<option value="%s" %s>%s</option>', esc_html( $id ), selected( $id, get_term_meta( $tag->term_id, '_ss_sidebar_alt', true ), false ), esc_html( $info['name'] ) );
 			}
 			?>
 		</select>

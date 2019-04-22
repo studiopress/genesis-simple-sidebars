@@ -21,7 +21,6 @@ class Genesis_Simple_Sidebars_Entry {
 			if ( post_type_supports( $type, 'genesis-simple-sidebars' ) || $type == 'post' || $type == 'page' ) {
 				add_meta_box( 'ss_inpost_metabox', __( 'Sidebar Selection', 'genesis-simple-sidebars' ), array( $this, 'metabox_content' ), $type, 'side', 'low' );
 			}
-
 		}
 
 	}
@@ -33,13 +32,15 @@ class Genesis_Simple_Sidebars_Entry {
 	 */
 	public function metabox_content() {
 
-		require_once( Genesis_Simple_Sidebars()->plugin_dir_path . 'includes/views/entry-metabox-content.php' );
+		require_once GENESIS_SIMPLE_SIDEBARS_PLUGIN_DIR . '/includes/views/entry-metabox-content.php';
 
 	}
 
 	/**
 	 * Save the metabox fields when the entry is saved.
 	 *
+	 * @param string $post_id Post Id.
+	 * @param array  $post Post.
 	 * @since 2.1.0
 	 */
 	public function metabox_save( $post_id, $post ) {
@@ -48,11 +49,14 @@ class Genesis_Simple_Sidebars_Entry {
 			return;
 		}
 
-		$data = wp_parse_args( $_POST['genesis_simple_sidebars'], array(
-			'_ss_header'      => '',
-			'_ss_sidebar'     => '',
-			'_ss_sidebar_alt' => '',
-		) );
+		$data = wp_parse_args(
+			$_POST['genesis_simple_sidebars'],
+			array(
+				'_ss_header'      => '',
+				'_ss_sidebar'     => '',
+				'_ss_sidebar_alt' => '',
+			)
+		);
 
 		genesis_save_custom_fields( $data, 'genesis-simple-sidebars-save-entry', 'genesis-simple-sidebars-save-entry-nonce', $post );
 

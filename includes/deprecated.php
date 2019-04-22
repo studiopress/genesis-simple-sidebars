@@ -1,4 +1,9 @@
 <?php
+/**
+ * Deprecated functions file.
+ *
+ * @package genesis-simple-sidebars
+ */
 
 /**
  * Deprecated.
@@ -53,19 +58,21 @@ function ss_sidebars_init() {
 /**
  * Deprecated.
  *
+ * @param string $sidebar_key Sidebar Key.
+ *
  * @since 0.9.0
  * @deprecated 2.1.0
  */
 function ss_do_one_sidebar( $sidebar_key = '' ) {
 
-	_deprecated_function( __FUNCTION__, '2.1.0', __( 'dynamic_sidebar() with sidebars_widget filter', 'genesis-simple-sidebars' ) );
+	_deprecated_function( __FUNCTION__, '2.1.0', esc_html__( 'dynamic_sidebar() with sidebars_widget filter', 'genesis-simple-sidebars' ) );
 
-	if ( '_ss_sidebar' == $sidebar_key ) {
+	if ( '_ss_sidebar' === $sidebar_key ) {
 		genesis_do_sidebar();
 		return true;
 	}
 
-	if ( '_ss_sidebar_alt' == $sidebar_key ) {
+	if ( '_ss_sidebar_alt' === $sidebar_key ) {
 		genesis_do_sidebar_alt();
 		return true;
 	}

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Functions file.
+ *
+ * @package genesis-simple-sidebars
+ */
 
 /**
  * Dummy function for backward compatibility. Outputs the primary sidebar.
