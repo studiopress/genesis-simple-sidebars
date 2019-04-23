@@ -3,6 +3,7 @@
  * Controls the creation, deletion, and editing of Simple Sidebar.
  *
  * @author StudioPress
+ * @package genesis-simple-sidebars
  */
 
 /**
@@ -16,6 +17,8 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 	/**
 	 * Settings field.
 	 *
+	 * @var string
+	 *
 	 * @since 2.1.0
 	 */
 	public $settings_field;
@@ -27,7 +30,7 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 
 		$this->settings_field = Genesis_Simple_Sidebars()->settings_field;
 
-		// For backward compatibility
+		// For backward compatibility.
 		define( 'SS_SETTINGS_FIELD', $this->settings_field );
 
 	}
@@ -53,12 +56,12 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 			),
 		);
 
-		// Empty, as we'll be building the page manually
+		// Empty, as we'll be building the page manually.
 		$page_ops = array();
 
 		$this->create( $page_id, $menu_ops, $page_ops, $this->settings_field );
 
-		// Simpe Sidebar actions (create, edit, or delete)
+		// Simpe Sidebar actions (create, edit, or delete).
 		add_action( 'admin_init', array( $this, 'actions' ) );
 
 	}
@@ -74,6 +77,7 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 
 		echo '<div class="wrap">';
 
+		// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
 		if ( isset( $_REQUEST['action'] ) && 'edit' === $_REQUEST['action'] ) {
 			require_once GENESIS_SIMPLE_SIDEBARS_PLUGIN_DIR . '/includes/views/admin-edit.php';
 		} else {
@@ -117,7 +121,7 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 				<td class="name column-name">
 					<?php
 					if ( $is_editable ) {
-						printf( '<a class="row-title" href="%s" title="Edit %s">%s</a>', admin_url( 'admin.php?page=simple-sidebars&amp;action=edit&amp;id=' . esc_html( $id ) ), esc_html( $info['name'] ), esc_html( $info['name'] ) );
+						printf( '<a class="row-title" href="%s" title="Edit %s">%s</a>', esc_url( admin_url( 'admin.php?page=simple-sidebars&amp;action=edit&amp;id=' . esc_html( $id ) ) ), esc_html( $info['name'] ), esc_html( $info['name'] ) );
 					} else {
 						printf( '<strong class="row-title">%s</strong>', esc_html( $info['name'] ) );
 					}
@@ -126,8 +130,8 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 					<?php if ( $is_editable ) : ?>
 					<br />
 					<div class="row-actions">
-						<span class="edit"><a href="<?php echo admin_url( 'admin.php?page=simple-sidebars&amp;action=edit&amp;id=' . esc_html( $id ) ); ?>"><?php _e( 'Edit', 'genesis-simple-sidebars' ); ?></a> | </span>
-						<span class="delete"><a class="delete-tag" href="<?php echo wp_nonce_url( admin_url( 'admin.php?page=simple-sidebars&amp;action=delete&amp;id=' . esc_html( $id ) ), 'simple-sidebars-action_delete-sidebar' ); ?>"><?php _e( 'Delete', 'genesis-simple-sidebars' ); ?></a></span>
+						<span class="edit"><a href="<?php echo esc_attr( admin_url( 'admin.php?page=simple-sidebars&amp;action=edit&amp;id=' . esc_html( $id ) ) ); ?>"><?php esc_html_e( 'Edit', 'genesis-simple-sidebars' ); ?></a> | </span>
+						<span class="delete"><a class="delete-tag" href="<?php echo esc_attr( wp_nonce_url( admin_url( 'admin.php?page=simple-sidebars&amp;action=delete&amp;id=' . esc_html( $id ) ), 'simple-sidebars-action_delete-sidebar' ) ); ?>"><?php esc_html_e( 'Delete', 'genesis-simple-sidebars' ); ?></a></span>
 					</div>
 					<?php endif; ?>
 
@@ -157,24 +161,26 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		/**
 		 * This section handles the data if a new sidebar is created
 		 */
-		if ( isset( $_REQUEST['action'] ) && 'create' == $_REQUEST['action'] ) {
-			$this->create_sidebar( $_POST['new_sidebar'] );
+		// phpcs:disable WordPress.Security.NonceVerification.NoNonceVerification
+		if ( isset( $_REQUEST['action'] ) && 'create' === $_REQUEST['action'] && isset( $_POST['new_sidebar'] ) ) {
+			$this->create_sidebar( array_map( 'sanitize_text_field', wp_unslash( $_POST['new_sidebar'] ) ) );
 		}
 
 		/**
 		 * This section will handle the data if a sidebar is deleted
 		 */
-		if ( isset( $_REQUEST['action'] ) && 'delete' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
-			$this->delete_sidebar( $_REQUEST['id'] );
+		// phpcs:disable WordPress.Security.NonceVerification.NoNonceVerification
+		if ( isset( $_REQUEST['action'] ) && 'delete' === $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
+			$this->delete_sidebar( sanitize_text_field( wp_unslash( $_REQUEST['id'] ) ) );
 		}
 
 		/**
 		 * This section will handle the data if a sidebar is to be modified
 		 */
-		if ( isset( $_REQUEST['action'] ) && 'edit' == $_REQUEST['action'] && ! isset( $_REQUEST['id'] ) ) {
-			$this->edit_sidebar( $_POST['edit_sidebar'] );
+		if ( isset( $_REQUEST['action'] ) && 'edit' === $_REQUEST['action'] && ! isset( $_REQUEST['id'] ) && isset( $_POST['edit_sidebar'] ) ) {
+			$this->edit_sidebar( array_map( 'sanitize_text_field', wp_unslash( $_POST['edit_sidebar'] ) ) );
 		}
-
+		// phpcs:enable
 	}
 
 	/**
@@ -192,38 +198,38 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 
 		$pattern = '<div id="message" class="updated"><p><strong>%s</strong></p></div>';
 
+		// phpcs:disable WordPress.Security.NonceVerification.NoNonceVerification
 		if ( isset( $_REQUEST['created'] ) && 'true' === $_REQUEST['created'] ) {
-			printf( $pattern, __( 'New sidebar successfully created!', 'genesis-simple-sidebars' ) );
+			printf( wp_kses_post( $pattern ), esc_html__( 'New sidebar successfully created!', 'genesis-simple-sidebars' ) );
 			return;
 		}
 
 		if ( isset( $_REQUEST['edited'] ) && 'true' === $_REQUEST['edited'] ) {
-			printf( $pattern, __( 'Sidebar successfully edited!', 'genesis-simple-sidebars' ) );
+			printf( wp_kses_post( $pattern ), esc_html__( 'Sidebar successfully edited!', 'genesis-simple-sidebars' ) );
 			return;
 		}
 
 		if ( isset( $_REQUEST['deleted'] ) && 'true' === $_REQUEST['deleted'] ) {
-			printf( $pattern, __( 'Sidebar successfully deleted.', 'genesis-simple-sidebars' ) );
+			printf( wp_kses_post( $pattern ), esc_html__( 'Sidebar successfully deleted.', 'genesis-simple-sidebars' ) );
 			return;
 		}
-
-		return;
 
 	}
 
 	/**
 	 * Create a sidebar.
 	 *
+	 * @param array $args Arguments.
+	 *
 	 * @since 1.0.0
 	 */
 	protected function create_sidebar( $args = array() ) {
-
 		if ( empty( $args['name'] ) ) {
-			wp_die( $this->error( 1 ) );
+			wp_die( esc_html( $this->error( 1 ) ) );
 			exit;
 		}
 
-		// nonce verification
+		// nonce verification.
 		check_admin_referer( 'simple-sidebars-action_create-sidebar' );
 
 		$db = (array) get_option( $this->settings_field );
@@ -243,7 +249,7 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		if ( ! $id || is_registered_sidebar( $id ) ) {
 			$n = count( $db ) + 1;
 			do {
-				$id = 'gss-sidebar-' . $n++;
+				$id = 'gss-sidebar-' . [ $n++ ];
 			} while ( is_registered_sidebar( $id ) );
 		}
 
@@ -255,14 +261,14 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		);
 
 		if ( array_key_exists( $id, $db ) ) {
-			wp_die( $this->error( 2 ) );
+			wp_die( esc_html( $this->error( 2 ) ) );
 			exit;
 		}
 
 		$_sidebars = wp_parse_args( $new, $db );
 
 		update_option( $this->settings_field, $_sidebars );
-		wp_redirect( admin_url( 'admin.php?page=simple-sidebars&created=true' ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=simple-sidebars&created=true' ) );
 		exit;
 
 	}
@@ -270,16 +276,17 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 	/**
 	 * Edit a sidebar.
 	 *
+	 * @param array $args Arguments.
 	 * @since 1.0.0
 	 */
 	protected function edit_sidebar( $args = array() ) {
 
 		if ( empty( $args['name'] ) || empty( $args['id'] ) ) {
-			wp_die( $this->error( 3 ) );
+			wp_die( esc_html( $this->error( 3 ) ) );
 			exit;
 		}
 
-		// nonce verification
+		// nonce verification.
 		check_admin_referer( 'simple-sidebars-action_edit-sidebar' );
 
 		$db  = (array) get_option( $this->settings_field );
@@ -291,14 +298,14 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		);
 
 		if ( ! array_key_exists( $args['id'], $db ) ) {
-			wp_die( $this->error( 3 ) );
+			wp_die( esc_html( $this->error( 3 ) ) );
 			exit;
 		}
 
 		$_sidebars = wp_parse_args( $new, $db );
 
 		update_option( $this->settings_field, $_sidebars );
-		wp_redirect( admin_url( 'admin.php?page=simple-sidebars&edited=true' ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=simple-sidebars&edited=true' ) );
 		exit;
 
 	}
@@ -306,35 +313,37 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 	/**
 	 * Delete a sidebar.
 	 *
+	 * @param string $id Id.
 	 * @since 1.0.0
 	 */
 	protected function delete_sidebar( $id = '' ) {
-
 		if ( empty( $id ) ) {
-			wp_die( $this->error( 4 ) );
+			wp_die( esc_html( $this->error( 4 ) ) );
 			exit;
 		}
 
-		// nonce verification
+		// nonce verification.
 		check_admin_referer( 'simple-sidebars-action_delete-sidebar' );
 
 		$_sidebars = (array) get_option( $this->settings_field );
 
 		if ( ! isset( $_sidebars[ $id ] ) ) {
-			wp_die( $this->error( 4 ) );
+			wp_die( esc_html( $this->error( 4 ) ) );
 			exit;
 		}
 
 		unset( $_sidebars[ $id ] );
 
 		update_option( $this->settings_field, $_sidebars );
-		wp_redirect( admin_url( 'admin.php?page=simple-sidebars&deleted=true' ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=simple-sidebars&deleted=true' ) );
 		exit;
 
 	}
 
 	/**
 	 * Returns an error message by ID.
+	 *
+	 * @param bool $error Error id.
 	 *
 	 * @since 1.0.0
 	 *
@@ -350,16 +359,12 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 
 			case 1:
 				return __( 'Oops! Please choose a valid Name for this sidebar', 'genesis-simple-sidebars' );
-				break;
 			case 2:
 				return __( 'Oops! That sidebar ID already exists', 'genesis-simple-sidebars' );
-				break;
 			case 3:
 				return __( 'Oops! You are trying to edit a sidebar that does not exist, or is not editable', 'genesis-simple-sidebars' );
-				break;
 			case 4:
 				return __( 'Oops! You are trying to delete a sidebar that does not exist, or cannot be deleted', 'genesis-simple-sidebars' );
-				break;
 			default:
 				return __( 'Oops! Something went wrong. Try again.', 'genesis-simple-sidebars' );
 

@@ -11,7 +11,7 @@
 class Genesis_Simple_Sidebars_Term {
 
 	/**
-	 * Init functiom.
+	 * Init function.
 	 */
 	public function init() {
 
