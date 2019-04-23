@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'GENESIS_SIMPLE_SIDEBARS_SETTINGS_FIELD', 'genesis_simple_sidebars_settings' );
-define( 'GENESIS_SIMPLE_SIDEBARS_VERSION', '2.1.1' );
+define( 'GENESIS_SIMPLE_SIDEBARS_VERSION', '2.2.0' );
 define( 'GENESIS_SIMPLE_SIDEBARS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GENESIS_SIMPLE_SIDEBARS_PLUGIN_URL', plugins_url( '', __FILE__ ) );
 
