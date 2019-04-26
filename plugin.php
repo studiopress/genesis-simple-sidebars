@@ -1,6 +1,16 @@
 <?php
 /**
- * Load the main plugin file.
+ * Plugin Name: Genesis Simple Sidebars
+ * Plugin URI: https://github.com/copyblogger/genesis-simple-sidebars
+ * Description: Genesis Simple Sidebars allows you to easily create and use new sidebar widget areas.
+ * Version: 2.2.0
+ * Author: StudioPress
+ * Author URI: http://www.studiopress.com/
+ * License: GNU General Public License v2.0 (or later)
+ * License URI: https://www.opensource.org/licenses/gpl-license.php
+ *
+ * Text Domain: genesis-simple-sidebars
+ * Domain Path: /languages
  *
  * @package genesis-simple-sidebars
  */

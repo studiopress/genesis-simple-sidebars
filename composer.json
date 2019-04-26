@@ -1,8 +1,8 @@
 {
-	"name": "studiopress/genesis-simple-menus",
+	"name": "studiopress/genesis-simple-sidebars",
 	"type": "wordpress-plugin",
-	"description": "Simple Menus allows you to select a WP menu for secondary navigation on posts, pages, categories, tags or custom taxonomies.",
-	"homepage": "https://github.com/studiopress/genesis-simple-share",
+	"description": "Genesis Simple Sidebars allows you to easily create and use new sidebar widget areas.",
+	"homepage": "https://github.com/studiopress/genesis-simple-sidebars",
 	"license": "GPL-2.0-or-later",
 	"require": {
 		"php": "^5.3 || ^7",
