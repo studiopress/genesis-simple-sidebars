@@ -249,7 +249,8 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		if ( ! $id || is_registered_sidebar( $id ) ) {
 			$n = count( $db ) + 1;
 			do {
-				$id = 'gss-sidebar-' . [ $n++ ];
+				$n  = $n++;
+				$id = 'gss-sidebar-' . $n;
 			} while ( is_registered_sidebar( $id ) );
 		}
 
