@@ -57,7 +57,7 @@ class Genesis_Simple_Sidebars_Entry {
 	public function metabox_save( $post_id, $post ) {
 
 		// phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
-		$genesis_simple_sidebars = isset( $_POST['genesis_simple_sidebars'] ) ? sanitize_text_field( wp_unslash( $_POST['genesis_simple_sidebars'] ) ) : '';
+		$genesis_simple_sidebars = isset( $_POST['genesis_simple_sidebars'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['genesis_simple_sidebars'] ) ) : '';
 
 		if ( empty( $genesis_simple_sidebars ) ) {
 			return;
