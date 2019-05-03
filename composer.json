@@ -22,8 +22,8 @@
 	"prefer-stable": true,
 	"scripts": {
 		"phpcs": "phpcs --standard=WordPress --ignore=vendor/,node_modules/,assets/ --extensions=php -p ./",
-    "phpcs-compat": "phpcs --extensions=php --standard=PHPCompatibilityWP --ignore=vendor/,node_modules/,assets/ --runtime-set testVersion 5.6- -p ./",
-    "phpcbf": "phpcbf --standard=WordPress --ignore=vendor/,node_modules/,assets/ --extensions=php -p ./"
+		"phpcs-compat": "phpcs --extensions=php --standard=PHPCompatibilityWP --ignore=vendor/,node_modules/,assets/ --runtime-set testVersion 5.6- -p ./",
+		"phpcbf": "phpcbf --standard=WordPress --ignore=vendor/,node_modules/,assets/ --extensions=php -p ./"
 	},
 	"support": {
 		"issues": "https://github.com/studiopress/genesis-simple-sidebars/issues",
