@@ -26,7 +26,7 @@
         "phpcbf": "phpcbf --standard=WordPress --ignore=vendor/,node_modules/,assets/ --extensions=php -p ./"
 	},
 	"support": {
-		"issues": "https://github.com/studiopress/genesis-simple-share/issues",
+		"issues": "https://github.com/studiopress/genesis-simple-sidebars/issues",
 		"source": "https://github.com/studiopress/genesis-simple-share"
 	}
 }
