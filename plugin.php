@@ -1,20 +1,26 @@
 <?php
-/*
-Plugin Name: Genesis Simple Sidebars
-Plugin URI: http://www.studiopress.com/plugins/simple-sidebars
+/**
+ * Plugin Name: Genesis Simple Sidebars
+ * Plugin URI: https://github.com/copyblogger/genesis-simple-sidebars
+ * Description: Genesis Simple Sidebars allows you to easily create and use new sidebar widget areas.
+ * Version: 2.2.0
+ * Author: StudioPress
+ * Author URI: http://www.studiopress.com/
+ * License: GNU General Public License v2.0 (or later)
+ * License URI: https://www.opensource.org/licenses/gpl-license.php
+ *
+ * Text Domain: genesis-simple-sidebars
+ * Domain Path: /languages
+ *
+ * @package genesis-simple-sidebars
+ */
 
-Description: Genesis Simple Sidebars allows you to easily create and use new sidebar widget areas.
+/**
+ * Load the plugin file.
+ */
 
-Author: StudioPress
-Author URI: http://www.studiopress.com/
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-Version: 2.1.0
-
-Text Domain: genesis-simple-sidebars
-Domain Path: /languages/
-
-License: GNU General Public License v2.0 (or later)
-License URI: http://www.opensource.org/licenses/gpl-license.php
-*/
-
-require_once( plugin_dir_path( __FILE__ ) . 'genesis-simple-sidebars.php' );
+require_once plugin_dir_path( __FILE__ ) . 'genesis-simple-sidebars.php';

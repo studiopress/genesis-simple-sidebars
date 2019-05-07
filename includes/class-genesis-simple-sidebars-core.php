@@ -1,4 +1,9 @@
 <?php
+/**
+ * Genesis Simple Sidebars Core.
+ *
+ * @package genesis-simple-sidebars
+ */
 
 /**
  * Controls the core functions of registration and output of Sidebars
@@ -9,11 +14,15 @@ class Genesis_Simple_Sidebars_Core {
 
 	/**
 	 * The created sidebars.
+	 *
+	 * @var string
 	 */
 	private $sidebars;
 
 	/**
 	 * Public taxonomies.
+	 *
+	 * @var array
 	 */
 	private $public_taxonomies;
 
@@ -28,6 +37,11 @@ class Genesis_Simple_Sidebars_Core {
 
 	}
 
+	/**
+	 * For backward compatibility, we need to use old functions to hook in sidebar output.
+	 *
+	 * @since 2.1.0
+	 */
 	public function backward_compatibility() {
 
 		remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
@@ -50,19 +64,21 @@ class Genesis_Simple_Sidebars_Core {
 			return;
 		}
 
-		// Cycle through created sidebars, register them as widget areas
+		// Cycle through created sidebars, register them as widget areas.
 		foreach ( (array) $sidebars as $id => $info ) {
 
 			if ( ! isset( $info['name'] ) || ! isset( $info['description'] ) ) {
 				continue;
 			}
 
-			genesis_register_sidebar( array(
-				'name'        => esc_html( $info['name'] ),
-				'id'          => $id,
-				'description' => esc_html( $info['description'] ),
-				'editable'    => 1,
-			) );
+			genesis_register_sidebar(
+				array(
+					'name'        => esc_html( $info['name'] ),
+					'id'          => $id,
+					'description' => esc_html( $info['description'] ),
+					'editable'    => 1,
+				)
+			);
 
 		}
 
@@ -70,6 +86,8 @@ class Genesis_Simple_Sidebars_Core {
 
 	/**
 	 * Filter the widgets in each widget area.
+	 *
+	 * @param array $widgets Widgets.
 	 *
 	 * @since 2.1.0
 	 */
@@ -106,6 +124,9 @@ class Genesis_Simple_Sidebars_Core {
 	/**
 	 * Take the $widgets array and swap the contents of each widget area with a custom widget area, if specified.
 	 *
+	 * @param array $widgets Widgets.
+	 * @param array $sidebars Sidebars.
+	 *
 	 * @since 2.1.0
 	 */
 	public function swap_widgets( $widgets, $sidebars ) {
@@ -123,7 +144,6 @@ class Genesis_Simple_Sidebars_Core {
 			if ( $new_sidebar && ! empty( $widgets[ $new_sidebar ] ) ) {
 				$widgets[ $old_sidebar ] = $widgets[ $new_sidebar ];
 			}
-
 		}
 
 		return $widgets;
@@ -132,6 +152,8 @@ class Genesis_Simple_Sidebars_Core {
 
 	/**
 	 * Get all custom registered sidebars.
+	 *
+	 * @param bool $cache Indicates if should get from cache.
 	 *
 	 * @since 2.1.0
 	 */
@@ -159,10 +181,12 @@ class Genesis_Simple_Sidebars_Core {
 	public function get_public_taxonomies() {
 
 		if ( is_null( $this->public_taxonomies ) ) {
-			$this->public_taxonomies = get_taxonomies( array(
-				'show_ui' => true,
-				'public'  => true,
-			) );
+			$this->public_taxonomies = get_taxonomies(
+				array(
+					'show_ui' => true,
+					'public'  => true,
+				)
+			);
 		}
 
 		$this->public_taxonomies = apply_filters( 'genesis_simple_sidebars_taxonomies', array_keys( $this->public_taxonomies ) );
