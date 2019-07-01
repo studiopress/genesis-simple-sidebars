@@ -95,12 +95,14 @@ class Genesis_Simple_Sidebars_Core {
 
 		$sidebars = array();
 
-		if ( is_singular() ) {
+		if ( is_singular() || is_home() && isset( get_queried_object()->ID ) ) {
+
+			$post_id = get_queried_object()->ID;
 
 			$sidebars = array(
-				'sidebar'      => genesis_get_custom_field( '_ss_sidebar' ),
-				'sidebar-alt'  => genesis_get_custom_field( '_ss_sidebar_alt' ),
-				'header-right' => genesis_get_custom_field( '_ss_header' ),
+				'sidebar'      => genesis_get_custom_field( '_ss_sidebar', $post_id ),
+				'sidebar-alt'  => genesis_get_custom_field( '_ss_sidebar_alt', $post_id ),
+				'header-right' => genesis_get_custom_field( '_ss_header', $post_id ),
 			);
 
 		}
