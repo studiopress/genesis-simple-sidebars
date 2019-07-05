@@ -1,14 +1,14 @@
-# Copyright (C) 2015 Nathan Rice
+# Copyright (C) 2019 StudioPress
 # This file is distributed under the GNU General Public License v2.0 (or later).
 msgid ""
 msgstr ""
-"Project-Id-Version: Genesis Simple Sidebars 2.0.2\n"
+"Project-Id-Version: Genesis Simple Sidebars 2.2.1\n"
 "Report-Msgid-Bugs-To: StudioPress <translations@studiopress.com>\n"
-"POT-Creation-Date: 2015-09-29 20:53:32+00:00\n"
+"POT-Creation-Date: 2019-07-05 14:42:22+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
 "Last-Translator: StudioPress <translations@studiopress.com>\n"
 "Language-Team: English <translations@studiopress.com>\n"
 "X-Generator: grunt-wp-i18n 0.4.4\n"
@@ -24,132 +24,156 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes\n"
 
-#: includes/admin.php:32 includes/views/main.php:2
+#: includes/class-genesis-simple-sidebars-admin.php:54
+#: includes/views/admin-main.php:10
 msgid "Genesis - Simple Sidebars"
 msgstr ""
 
-#: includes/admin.php:33
+#: includes/class-genesis-simple-sidebars-admin.php:55
 msgid "Simple Sidebars"
 msgstr ""
 
-#: includes/admin.php:107
+#: includes/class-genesis-simple-sidebars-admin.php:133
 msgid "Edit"
 msgstr ""
 
-#: includes/admin.php:108
+#: includes/class-genesis-simple-sidebars-admin.php:134
 msgid "Delete"
 msgstr ""
 
-#: includes/admin.php:173
+#: includes/class-genesis-simple-sidebars-admin.php:203
 msgid "New sidebar successfully created!"
 msgstr ""
 
-#: includes/admin.php:178
+#: includes/class-genesis-simple-sidebars-admin.php:208
 msgid "Sidebar successfully edited!"
 msgstr ""
 
-#: includes/admin.php:183
+#: includes/class-genesis-simple-sidebars-admin.php:213
 msgid "Sidebar successfully deleted."
 msgstr ""
 
-#: includes/admin.php:319
-msgid "Oops! Please choose a valid Name and ID for this sidebar"
+#: includes/class-genesis-simple-sidebars-admin.php:362
+msgid "Oops! Please choose a valid Name for this sidebar"
 msgstr ""
 
-#: includes/admin.php:322
+#: includes/class-genesis-simple-sidebars-admin.php:364
 msgid "Oops! That sidebar ID already exists"
 msgstr ""
 
-#: includes/admin.php:325
+#: includes/class-genesis-simple-sidebars-admin.php:366
 msgid ""
 "Oops! You are trying to edit a sidebar that does not exist, or is not "
 "editable"
 msgstr ""
 
-#: includes/admin.php:328
+#: includes/class-genesis-simple-sidebars-admin.php:368
 msgid ""
 "Oops! You are trying to delete a sidebar that does not exist, or cannot be "
 "deleted"
 msgstr ""
 
-#: includes/admin.php:331
+#: includes/class-genesis-simple-sidebars-admin.php:370
 msgid "Oops! Something went wrong. Try again."
 msgstr ""
 
-#: includes/inpost.php:12
+#: includes/class-genesis-simple-sidebars-entry.php:33
 msgid "Sidebar Selection"
 msgstr ""
 
-#: includes/inpost.php:35 includes/inpost.php:50 includes/term.php:37
-#: includes/term.php:54
-msgid "Default"
+#: includes/class-genesis-simple-sidebars.php:99
+msgid "upgrade to"
 msgstr ""
 
-#: includes/term.php:30
-msgid "Sidebar Options"
+#: includes/class-genesis-simple-sidebars.php:99
+msgid "install and activate"
 msgstr ""
 
-#: includes/term.php:34
-msgid "Primary Sidebar"
+#: includes/class-genesis-simple-sidebars.php:102
+#. translators: %1$s is WordPress minimum version, %2$s is Genesis minimum
+#. version, %3$s is action and %4$s is link.
+msgid ""
+"Genesis Simple Sidebars requires WordPress %1$s and Genesis %2$s, or "
+"greater. Please %3$s the latest version of <a href=\"%4$s\" "
+"target=\"_blank\">Genesis</a> to use this plugin."
 msgstr ""
 
-#: includes/term.php:51
-msgid "Secondary Sidebar"
+#: includes/deprecated.php:68
+msgid "dynamic_sidebar() with sidebars_widget filter"
 msgstr ""
 
-#: includes/views/edit.php:5
+#: includes/views/admin-edit.php:14
 msgid "Nice try, partner. But that sidebar doesn't exist. Click back and try again."
 msgstr ""
 
-#: includes/views/edit.php:9
+#: includes/views/admin-edit.php:18
 msgid "Edit Sidebar"
 msgstr ""
 
-#: includes/views/edit.php:17 includes/views/main.php:13
-#: includes/views/main.php:21 includes/views/main.php:48
+#: includes/views/admin-edit.php:26 includes/views/admin-main.php:21
+#: includes/views/admin-main.php:29 includes/views/admin-main.php:56
 msgid "Name"
 msgstr ""
 
-#: includes/views/edit.php:19 includes/views/main.php:50
+#: includes/views/admin-edit.php:28 includes/views/admin-main.php:58
 msgid "A recognizable name for your new sidebar widget area"
 msgstr ""
 
-#: includes/views/edit.php:23 includes/views/main.php:14
-#: includes/views/main.php:22 includes/views/main.php:54
+#: includes/views/admin-edit.php:32 includes/views/admin-main.php:22
+#: includes/views/admin-main.php:30 includes/views/admin-main.php:62
 msgid "ID"
 msgstr ""
 
-#: includes/views/edit.php:27
+#: includes/views/admin-edit.php:37
 msgid ""
 "The unique ID is used to register the sidebar widget area (cannot be "
 "changed)"
 msgstr ""
 
-#: includes/views/edit.php:31 includes/views/main.php:15
-#: includes/views/main.php:23 includes/views/main.php:60
+#: includes/views/admin-edit.php:41 includes/views/admin-main.php:23
+#: includes/views/admin-main.php:31 includes/views/admin-main.php:68
 msgid "Description"
 msgstr ""
 
-#: includes/views/edit.php:37
+#: includes/views/admin-edit.php:47
 msgid "Update"
 msgstr ""
 
-#: includes/views/main.php:9
+#: includes/views/admin-main.php:17
 msgid "Current Sidebars"
 msgstr ""
 
-#: includes/views/main.php:42 includes/views/main.php:64
+#: includes/views/admin-main.php:50 includes/views/admin-main.php:72
 msgid "Add New Sidebar"
 msgstr ""
 
-#: includes/views/main.php:56
+#: includes/views/admin-main.php:64
 msgid "The unique ID is used to register the sidebar widget area"
 msgstr ""
 
-#: plugin.php:48
-msgid ""
-"Sorry, you cannot run Simple Sidebars without WordPress %s and <a "
-"href=\"%s\">Genesis %s</a>, or greater."
+#: includes/views/entry-metabox-content.php:16
+#: includes/views/entry-metabox-content.php:32
+#: includes/views/entry-metabox-content.php:48
+#: includes/views/term-edit-sidebar-form.php:19
+#: includes/views/term-edit-sidebar-form.php:34
+#: includes/views/term-edit-sidebar-form.php:49
+msgid "Default"
+msgstr ""
+
+#: includes/views/term-edit-sidebar-form.php:11
+msgid "Sidebar Options"
+msgstr ""
+
+#: includes/views/term-edit-sidebar-form.php:16
+msgid "Header Right"
+msgstr ""
+
+#: includes/views/term-edit-sidebar-form.php:31
+msgid "Primary Sidebar"
+msgstr ""
+
+#: includes/views/term-edit-sidebar-form.php:46
+msgid "Secondary Sidebar"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
@@ -157,7 +181,7 @@ msgid "Genesis Simple Sidebars"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "http://www.studiopress.com/plugins/simple-sidebars"
+msgid "https://github.com/studiopress/genesis-simple-sidebars"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -167,9 +191,9 @@ msgid ""
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "Nathan Rice"
+msgid "StudioPress"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://www.nathanrice.net/"
+msgid "https://www.studiopress.com/"
 msgstr ""
