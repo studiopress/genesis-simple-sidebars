@@ -38,7 +38,7 @@ Not in the way you're probably thinking. The markup surrounding the widget area 
 == Changelog ==
 
 = 2.2.1 =
-* Allow sidebars to show in the custom Blog Posts page.
+* Allow sidebars to show in the WordPress Posts page.
 
 = 2.2.0 =
 * Fixed coding standards errors.
