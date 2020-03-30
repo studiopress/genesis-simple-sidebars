@@ -13,9 +13,6 @@ commands:
             [ ! -d "/tmp/artifacts" ] && mkdir /tmp/artifacts &>/dev/null
   svn_setup:
     description: "Setup SVN"
-    parameters:
-      slug:
-        type: string
     steps:
       - mkdir_artifacts
       - run:
