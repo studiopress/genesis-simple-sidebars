@@ -5,6 +5,54 @@ commands:
     description: "Install development dependencies."
     steps:
       - run: composer install
+  mkdir_artifacts:
+    description: "Make Artifacts directory"
+    steps:
+      - run:
+          command: |
+            [ ! -d "/tmp/artifacts" ] && mkdir /tmp/artifacts &>/dev/null
+  svn_setup:
+    description: "Setup SVN"
+    parameters:
+      slug:
+        type: string
+    steps:
+      - mkdir_artifacts
+      - run:
+          command: |
+            cd /tmp/artifacts
+            SLUG=grep 'Text Domain:' /tmp/src/plugin.php | awk -F: '{print $2}' | sed 's/^\s//'
+            svn co https://plugins.svn.wordpress.org/$SLUG --depth=empty .
+            svn up trunk
+            svn up tags --depth=empty
+            cd trunk
+            rm -rf * .* *.*
+            cp -r /tmp/src/* .
+            svn propset svn:ignore -F .svnignore .
+  svn_add_changes:
+    description: "Add changes to SVN"
+    steps:
+      - deply:
+          command: |
+            cd /tmp/artifacts
+            svn st | grep ^! | awk '{print " --force "$2}' | xargs svn rm
+            svn add --force .
+  svn_create_tag:
+    description: "Create a SVN tag"
+    steps:
+      - deploy:
+          command: |
+            cd /tmp/artifacts
+            VERSION=grep 'Version:' /tmp/src/plugin.php | awk -F: '{print $2}' | sed 's/^\s//'
+            svn cp trunk tags/$VERSION
+  svn_commit:
+    description: "Commit changes to SVN"
+    steps:
+      - deploy:
+          command: |
+            cd /tmp/artifacts
+            VERSION=grep 'Version:' /tmp/src/plugin.php | awk -F: '{print $2}' | sed 's/^\s//'
+            svn ci -m "Tagging $VERSION from Github" --no-auth-cache --non-interactive --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
 
 executors:
   base:
@@ -27,46 +75,89 @@ jobs:
           paths:
             - src
 
-  standards:
+  checks:
     executor: php_node
     steps:
       - attach_workspace:
           at: /tmp
       - install_dependencies
       - run: composer phpcs
+      - persist_to_workspace:
+          root: /tmp
+          paths:
+            - src
 
-  deploy_svn:
+  deploy_svn_branch:
     executor: base
     steps:
       - attach_workspace:
           at: /tmp
-      - run:
-          command: |
-            SLUG=grep 'Text Domain:' ./plugin.php | awk -F: '{print $2}' | sed 's/^\s//'
-            VERSION=grep 'Version:' ./plugin.php | awk -F: '{print $2}' | sed 's/^\s//'
-            chmod +x ./svn-deploy.sh
-            ./svn-deploy.sh
+      - svn_setup
+      - svn_add_changes
+      - svn_commit
+
+  deploy_svn_tag:
+    executor: base
+    steps:
+      - attach_workspace:
+          at: /tmp
+      - svn_setup
+      - svn_add_changes
+      - svn_create_tag
+      - svn_commit
 
 workflows:
   version: 2
-  check-standards:
+  checks:
+    jobs:
+      - checkout
+      - checks:
+          requires:
+            - checkout
+
+  branch_deploy:
+    jobs:
+      - checkout:
+          filters:
+            branchs:
+              only: master
+      - checks:
+          requires:
+            - checkout
+          filters:
+            branchs:
+              only: master
+      - deploy_svn_branch:
+          requires:
+            - checkout
+            - checks
+          filters:
+            branchs:
+              only: master
+
+  tag_deploy:
     jobs:
       - checkout:
           filters:
             tags:
-              only: /.*/
+              only: /^\d+\.\d+\.\d+$/
+            branches:
+              only: master
       - standards:
           filters:
             tags:
-              only: /.*/
+              only: /^\d+\.\d+\.\d+$/
+            branches:
+              only: master
           requires:
             - checkout
-      - deploy_svn:
+      - deploy_svn_tag:
+          context: genesis-svn
           requires:
             - checkout
             - standards
           filters:
             tags:
-              only: /.*/
+              only: /^\d+\.\d+\.\d+$/
             branches:
               only: master
