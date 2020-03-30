@@ -1,22 +1,72 @@
 version: 2.1
 
-jobs:
-  test:
+commands:
+  install_dependencies:
+    description: "Install development dependencies."
+    steps:
+      - run: composer install
+
+executors:
+  base:
+    docker:
+      - image: circleci/buildpack-deps:latest
+    working_directory: /tmp
+  php_node:
     docker:
       - image: circleci/php:7.3.3-stretch-node-browsers
+    working_directory: /tmp/src
+
+jobs:
+  checkout:
+    executor: base
     steps:
-      - checkout
-      - prepare-environment
+      - checkout:
+          path: src
+      - persist_to_workspace:
+          root: /tmp
+          paths:
+            - src
+
+  standards:
+    executor: php_node
+    steps:
+      - attach_workspace:
+          at: /tmp
+      - install_dependencies
       - run: composer phpcs
 
-commands:
- prepare-environment:
-   description: "Install dependencies."
-   steps:
-     - run: composer install
+  deploy_svn:
+    executor: base
+    steps:
+      - attach_workspace:
+          at: /tmp
+      - run:
+          command: |
+            SLUG=grep 'Text Domain:' ./plugin.php | awk -F: '{print $2}' | sed 's/^\s//'
+            VERSION=grep 'Version:' ./plugin.php | awk -F: '{print $2}' | sed 's/^\s//'
+            chmod +x ./svn-deploy.sh
+            ./svn-deploy.sh
 
 workflows:
   version: 2
-  check-wp-cs:
+  check-standards:
     jobs:
-      - test
+      - checkout:
+          filters:
+            tags:
+              only: /.*/
+      - standards:
+          filters:
+            tags:
+              only: /.*/
+          requires:
+            - checkout
+      - deploy_svn:
+          requires:
+            - checkout
+            - standards
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              only: master
