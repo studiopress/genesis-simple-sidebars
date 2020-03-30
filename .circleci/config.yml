@@ -125,6 +125,7 @@ workflows:
             branches:
               only: master
       - deploy_svn_branch:
+          context: genesis-svn
           requires:
             - checkout
             - checks
