@@ -119,20 +119,20 @@ workflows:
     jobs:
       - checkout:
           filters:
-            branchs:
+            branches:
               only: master
       - checks:
           requires:
             - checkout
           filters:
-            branchs:
+            branches:
               only: master
       - deploy_svn_branch:
           requires:
             - checkout
             - checks
           filters:
-            branchs:
+            branches:
               only: master
 
   tag_deploy:
