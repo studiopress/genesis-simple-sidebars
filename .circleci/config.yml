@@ -140,7 +140,7 @@ workflows:
               only: /^\d+\.\d+\.\d+$/
             branches:
               only: master
-      - standards:
+      - checks:
           filters:
             tags:
               only: /^\d+\.\d+\.\d+$/
@@ -152,7 +152,7 @@ workflows:
           context: genesis-svn
           requires:
             - checkout
-            - standards
+            - checks
           filters:
             tags:
               only: /^\d+\.\d+\.\d+$/
