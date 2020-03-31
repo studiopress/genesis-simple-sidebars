@@ -3,4 +3,4 @@
 .gitattributes
 .svnignore
 node_modules
-.circlci
+.circleci
