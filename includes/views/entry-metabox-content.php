@@ -12,7 +12,7 @@ wp_nonce_field( 'genesis-simple-sidebars-save-entry', 'genesis-simple-sidebars-s
 if ( is_registered_sidebar( 'header-right' ) ) : ?>
 <p>
 	<label class="howto" for="genesis_simple_sidebars[_ss_header]"><span><?php echo esc_attr( $wp_registered_sidebars['header-right']['name'] ); ?><span></label>
-	<select name="genesis_simple_sidebars[_ss_header]" id="genesis_simple_sidebars[_ss_header]" style="width: 99%">
+	<select name="genesis_simple_sidebars[_ss_header]" id="genesis_simple_sidebars[_ss_header]">
 		<option value=""><?php esc_html_e( 'Default', 'genesis-simple-sidebars' ); ?></option>
 		<?php
 		foreach ( (array) $sidebars as $sidebar_id => $info ) {
@@ -28,7 +28,7 @@ if ( is_registered_sidebar( 'sidebar' ) ) :
 	?>
 <p>
 	<label class="howto" for="genesis_simple_sidebars[_ss_sidebar]"><span><?php echo esc_attr( $wp_registered_sidebars['sidebar']['name'] ); ?><span></label>
-	<select name="genesis_simple_sidebars[_ss_sidebar]" id="genesis_simple_sidebars[_ss_sidebar]" style="width: 99%">
+	<select name="genesis_simple_sidebars[_ss_sidebar]" id="genesis_simple_sidebars[_ss_sidebar]">
 		<option value=""><?php esc_html_e( 'Default', 'genesis-simple-sidebars' ); ?></option>
 		<?php
 		foreach ( (array) $sidebars as $sidebar_id => $info ) {
@@ -44,7 +44,7 @@ if ( is_registered_sidebar( 'sidebar-alt' ) ) :
 	?>
 <p>
 	<label class="howto" for="genesis_simple_sidebars[_ss_sidebar_alt]"><span><?php echo esc_attr( $wp_registered_sidebars['sidebar-alt']['name'] ); ?><span></label>
-	<select name="genesis_simple_sidebars[_ss_sidebar_alt]" id="genesis_simple_sidebars[_ss_sidebar_alt]" style="width: 99%">
+	<select name="genesis_simple_sidebars[_ss_sidebar_alt]" id="genesis_simple_sidebars[_ss_sidebar_alt]">
 		<option value=""><?php esc_html_e( 'Default', 'genesis-simple-sidebars' ); ?></option>
 		<?php
 		foreach ( (array) $sidebars as $sidebar_id => $info ) {
