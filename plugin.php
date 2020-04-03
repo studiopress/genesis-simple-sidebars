@@ -3,7 +3,7 @@
  * Plugin Name: Genesis Simple Sidebars
  * Plugin URI: https://github.com/studiopress/genesis-simple-sidebars
  * Description: Genesis Simple Sidebars allows you to easily create and use new sidebar widget areas.
- * Version: 2.2.1
+ * Version: 2.2.2
  * Author: StudioPress
  * Author URI: https://www.studiopress.com/
  * License: GNU General Public License v2.0 (or later)
