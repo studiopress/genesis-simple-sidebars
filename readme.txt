@@ -39,7 +39,7 @@ Not in the way you're probably thinking. The markup surrounding the widget area 
 
 
 = 2.2.2 =
-Fix overlapping of sidebar selector in editor.
+* Fix overlapping of sidebar selector in editor.
 
 = 2.2.1 =
 * Allow sidebars to show in the WordPress Posts page.
