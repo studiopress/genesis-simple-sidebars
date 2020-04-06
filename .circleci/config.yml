@@ -40,7 +40,7 @@ commands:
       - deploy:
           command: |
             cd /tmp/artifacts
-            VERSION=grep 'Version:' /tmp/src/plugin.php | awk -F: '{print $2}' | sed 's/^\s//'
+            VERSION=$(grep 'Version:' /tmp/src/plugin.php | awk -F: '{print $2}' | sed 's/^\s//')
             svn cp trunk tags/$VERSION
   svn_commit:
     description: "Commit changes to SVN"
@@ -48,7 +48,7 @@ commands:
       - deploy:
           command: |
             cd /tmp/artifacts
-            VERSION=grep 'Version:' /tmp/src/plugin.php | awk -F: '{print $2}' | sed 's/^\s//'
+            VERSION=$(grep 'Version:' /tmp/src/plugin.php | awk -F: '{print $2}' | sed 's/^\s//')
             svn ci -m "Tagging $VERSION from Github" --no-auth-cache --non-interactive --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
 
 executors:
