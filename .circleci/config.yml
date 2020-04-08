@@ -148,15 +148,6 @@ workflows:
               only: /^\d+\.\d+\.\d+$/
             branches:
               ignore: /.*/
-      - hold:
-          type: approval
-          requires:
-            - checks
-          filters:
-            tags:
-              only: /^\d+\.\d+\.\d+$/
-            branches:
-              ignore: /.*/
       - deploy_svn_tag:
           context: genesis-svn
           requires:
