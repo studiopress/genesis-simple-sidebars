@@ -107,10 +107,16 @@ workflows:
   version: 2
   checks:
     jobs:
-      - checkout
+      - checkout:
+          filters:
+            branches:
+              ignore: master
       - checks:
           requires:
             - checkout
+          filters:
+            branches:
+              ignore: master
 
   branch_deploy:
     jobs:
