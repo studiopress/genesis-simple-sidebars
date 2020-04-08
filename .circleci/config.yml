@@ -151,7 +151,7 @@ workflows:
       - deploy_svn_tag:
           context: genesis-svn
           requires:
-            - hold
+            - checks
           filters:
             tags:
               only: /^\d+\.\d+\.\d+$/
