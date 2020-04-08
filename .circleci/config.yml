@@ -23,7 +23,7 @@ commands:
             svn up trunk
             svn up tags --depth=empty
             cd trunk
-            rm -rf * .* *.*
+            rm -rf ./* ./.*
             cp -r /tmp/src/* .
             svn propset svn:ignore -F .svnignore .
   svn_add_changes:
