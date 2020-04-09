@@ -39,7 +39,7 @@ commands:
   svn_add_changes:
     description: "Add changes to SVN"
     steps:
-      - run: svn st | grep ^! | awk '{print " --force "$2}' | xargs svn rm
+      - run: svn st | grep ^! | awk '{print " --force "$2}' | xargs -0r svn rm
       - run: svn add --force .
 
   svn_create_tag:
