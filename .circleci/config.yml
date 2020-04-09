@@ -32,21 +32,21 @@ commands:
       - run: echo "export SLUG=$(grep '@package' /tmp/src/plugin.php | awk -F ' ' '{print $3}' | sed 's/^\s//')" >> ${BASH_ENV}
       - run: svn co https://plugins.svn.wordpress.org/${SLUG} --depth=empty .
       - run: svn up trunk
-      - run: svn up tags --depth=empty
       - run: find ./trunk -not -path "./trunk" -delete
-      - run: cp -r /tmp/src/* ./trunk/.
-      - run: svn propset svn:ignore -F /tmp/src/.svnignore ./trunk
+      - run: cp -r /tmp/src/. ./trunk
+      - run: svn propset svn:ignore -F ./trunk/.svnignore ./trunk
 
   svn_add_changes:
     description: "Add changes to SVN"
     steps:
-      - run: svn st | grep ^! | awk '{print " --force "$2}' | xargs svn rm
+      - run: svn st | grep ^! | awk '{print " --force "$2}' | xargs svn rm &>/dev/null
       - run: svn add --force .
 
   svn_create_tag:
     description: "Create a SVN tag"
     steps:
       - set_verision_variable
+      - run: svn up tags --depth=empty
       - run: svn cp trunk tags/${VERSION}
 
   svn_commit:
@@ -79,16 +79,11 @@ jobs:
 
   checks:
     executor: php_node
-    working_directory: /tmp/src
     steps:
       - attach_workspace:
           at: /tmp
       - install_dependencies
       - run: composer phpcs
-      - persist_to_workspace:
-          root: /tmp
-          paths:
-            - src
 
   deploy_svn_branch:
     executor: base
