@@ -5,51 +5,55 @@ commands:
     description: "Install development dependencies."
     steps:
       - run: composer install
+
   mkdir_artifacts:
     description: "Make Artifacts directory"
     steps:
       - run:
           command: |
             [ ! -d "/tmp/artifacts" ] && mkdir /tmp/artifacts &>/dev/null
+
+  set_verision_variable:
+    description: "Set the VERSION environment variable"
+    steps:
+      - run:
+          command: |
+            echo "export VERSION=$(grep 'Version:' /tmp/src/plugin.php | awk -F: '{print $2}' | sed 's/^\s//')" >> ${BASH_ENV}
+
+  show_pwd_info:
+    description: "Show information about the current directory"
+    steps:
+      - run: pwd
+      - run: ls -lash
+
   svn_setup:
     description: "Setup SVN"
     steps:
-      - mkdir_artifacts
-      - run:
-          command: |
-            cd /tmp/artifacts
-            SLUG=$(grep '@package' /tmp/src/plugin.php | awk -F ' ' '{print $3}' | sed 's/^\s//')
-            svn co https://plugins.svn.wordpress.org/$SLUG --depth=empty .
-            svn up trunk
-            svn up tags --depth=empty
-            cd trunk
-            rm -rf ./* ./.* 2>/dev/null
-            cp -r /tmp/src/* .
-            svn propset svn:ignore -F .svnignore .
+      - run: echo "export SLUG=$(grep '@package' /tmp/src/plugin.php | awk -F ' ' '{print $3}' | sed 's/^\s//')" >> ${BASH_ENV}
+      - run: svn co https://plugins.svn.wordpress.org/${SLUG} --depth=empty .
+      - run: svn up trunk
+      - run: svn up tags --depth=empty
+      - run: find ./trunk -not -path "./trunk" -delete
+      - run: cp -r /tmp/src/* ./trunk/.
+      - run: svn propset svn:ignore -F /tmp/src/.svnignore ./trunk
+
   svn_add_changes:
     description: "Add changes to SVN"
     steps:
-      - deploy:
-          command: |
-            cd /tmp/artifacts
-            svn st | grep ^! | awk '{print " --force "$2}' | xargs svn rm
-            svn add --force .
+      - run: svn st | grep ^! | awk '{print " --force "$2}' | xargs svn rm
+      - run: svn add --force .
+
   svn_create_tag:
     description: "Create a SVN tag"
     steps:
-      - deploy:
-          command: |
-            cd /tmp/artifacts
-            VERSION=$(grep 'Version:' /tmp/src/plugin.php | awk -F: '{print $2}' | sed 's/^\s//')
-            svn cp trunk tags/$VERSION
+      - set_verision_variable
+      - run: svn cp trunk tags/${VERSION}
+
   svn_commit:
     description: "Commit changes to SVN"
     steps:
-      - deploy:
-          command: |
-            cd /tmp/artifacts
-            VERSION=$(grep 'Version:' /tmp/src/plugin.php | awk -F: '{print $2}' | sed 's/^\s//')
-            svn ci -m "Tagging $VERSION from Github" --no-auth-cache --non-interactive --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
+      - set_verision_variable
+      - run: svn ci -m "Tagging ${VERSION} from Github" --no-auth-cache --non-interactive --username "${SVN_USERNAME}" --password "${SVN_PASSWORD}"
 
 executors:
   base:
@@ -65,6 +69,7 @@ jobs:
   checkout:
     executor: base
     steps:
+      - mkdir_artifacts
       - checkout:
           path: src
       - persist_to_workspace:
@@ -74,6 +79,7 @@ jobs:
 
   checks:
     executor: php_node
+    working_directory: /tmp/src
     steps:
       - attach_workspace:
           at: /tmp
@@ -86,6 +92,7 @@ jobs:
 
   deploy_svn_branch:
     executor: base
+    working_directory: /tmp/artifacts
     steps:
       - attach_workspace:
           at: /tmp
@@ -95,6 +102,7 @@ jobs:
 
   deploy_svn_tag:
     executor: base
+    working_directory: /tmp/artifacts
     steps:
       - attach_workspace:
           at: /tmp
@@ -110,33 +118,38 @@ workflows:
       - checkout:
           filters:
             branches:
-              ignore: master
+              ignore:
+                - master
       - checks:
           requires:
             - checkout
           filters:
             branches:
-              ignore: master
+              ignore:
+                - master
 
   branch_deploy:
     jobs:
       - checkout:
           filters:
             branches:
-              only: master
+              only:
+                - master
       - checks:
           requires:
             - checkout
           filters:
             branches:
-              only: master
+              only:
+                - master
       - deploy_svn_branch:
           context: genesis-svn
           requires:
             - checks
           filters:
             branches:
-              only: master
+              only:
+                - master
 
   tag_deploy:
     jobs:
