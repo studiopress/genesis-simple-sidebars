@@ -5,7 +5,6 @@ commands:
     description: "Install development dependencies."
     steps:
       - run: composer install
-      - show_pwd_info
 
   mkdir_artifacts:
     description: "Make Artifacts directory"
