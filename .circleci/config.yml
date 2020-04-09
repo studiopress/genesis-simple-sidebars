@@ -32,6 +32,7 @@ commands:
       - run: echo "export SLUG=$(grep '@package' /tmp/src/plugin.php | awk -F ' ' '{print $3}' | sed 's/^\s//')" >> ${BASH_ENV}
       - run: svn co https://plugins.svn.wordpress.org/${SLUG} --depth=empty .
       - run: svn up trunk
+      - run: svn up tags --depth=empty
       - run: find ./trunk -not -path "./trunk" -delete
       - run: cp -r /tmp/src/. ./trunk
       - run: svn propset svn:ignore -F ./trunk/.svnignore ./trunk
@@ -47,7 +48,6 @@ commands:
     description: "Create a SVN tag"
     steps:
       - set_verision_variable
-      - run: svn up tags --depth=empty
       - run: svn cp trunk tags/${VERSION}
 
   svn_commit:
