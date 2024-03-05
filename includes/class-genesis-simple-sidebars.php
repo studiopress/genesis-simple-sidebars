@@ -100,7 +100,15 @@ class Genesis_Simple_Sidebars {
 
 			// translators: %1$s is WordPress minimum version, %2$s is Genesis minimum version, %3$s is action and %4$s is link.
 			$message = sprintf( __( 'Genesis Simple Sidebars requires WordPress %1$s and Genesis %2$s, or greater. Please %3$s the latest version of <a href="%4$s" target="_blank">Genesis</a> to use this plugin.', 'genesis-simple-sidebars' ), $this->min_wp_version, $this->min_genesis_version, $action, 'http://my.studiopress.com/?download_id=91046d629e74d525b3f2978e404e7ffa' );
-			echo '<div class="notice notice-warning"><p>' . esc_html( $message ) . '</p></div>';
+
+			$allowed_html = array(
+				'a' => array(
+					'href'   => array(),
+					'target' => array(),
+				),
+			);
+
+			echo '<div class="notice notice-warning"><p>' . wp_kses( $message, $allowed_html ) . '</p></div>';
 
 		}
 
