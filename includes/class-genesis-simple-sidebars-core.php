@@ -15,7 +15,7 @@ class Genesis_Simple_Sidebars_Core {
 	/**
 	 * The created sidebars.
 	 *
-	 * @var string
+	 * @var array
 	 */
 	private $sidebars;
 
@@ -161,13 +161,20 @@ class Genesis_Simple_Sidebars_Core {
 	 */
 	public function get_sidebars( $cache = true ) {
 
-		if ( ! $cache ) {
-			return stripslashes_deep( get_option( Genesis_Simple_Sidebars()->settings_field ) );
+		if ( $cache && ! is_null( $this->sidebars ) ) {
+			return $this->sidebars;
 		}
 
-		if ( is_null( $this->sidebars ) ) {
-			$this->sidebars = stripslashes_deep( get_option( Genesis_Simple_Sidebars()->settings_field ) );
-		}
+		$sidebars = stripslashes_deep( get_option( Genesis_Simple_Sidebars()->settings_field ) );
+
+		/**
+		 * Sidebars without a name are invalid. Filtering these prevents
+		 * corrupted sidebar data from throwing errors, as seen in:
+		 * https://wordpress.org/support/topic/php-8-2-error-6/#post-17472734
+		 */
+		$this->sidebars = array_filter( (array) $sidebars, function( $sidebar ) {
+			return isset( $sidebar['name'] );
+		} );
 
 		return $this->sidebars;
 
