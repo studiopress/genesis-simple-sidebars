@@ -172,9 +172,12 @@ class Genesis_Simple_Sidebars_Core {
 		 * corrupted sidebar data from throwing errors, as seen in:
 		 * https://wordpress.org/support/topic/php-8-2-error-6/#post-17472734
 		 */
-		$this->sidebars = array_filter( (array) $sidebars, function( $sidebar ) {
-			return isset( $sidebar['name'] );
-		} );
+		$this->sidebars = array_filter(
+			(array) $sidebars,
+			function( $sidebar ) {
+				return isset( $sidebar['name'] );
+			}
+		);
 
 		return $this->sidebars;
 
