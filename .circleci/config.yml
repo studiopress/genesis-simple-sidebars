@@ -3,14 +3,10 @@ version: 2.1
 orbs:
   wp-svn: studiopress/wp-svn@0.2
 
-executors:
-  php_node:
-    docker:
-      - image: cimg/php:7.3-node
-
 jobs:
   lint:
-    executor: php_node
+    docker:
+      - image: cimg/php:7.3-node
     steps:
       - checkout
       - run: composer install && composer phpcs
