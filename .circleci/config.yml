@@ -30,10 +30,5 @@ workflows:
             - approval-for-deploy-tested-up-to-bump
       - wp-svn/deploy:
           context: genesis-svn
-          filters:
-            tags:
-              only: /^\d+\.\d+\.\d+$/
-            branches:
-              ignore: /.*/
           requires:
             - lint
