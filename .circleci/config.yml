@@ -3,25 +3,21 @@ version: 2.1
 orbs:
   wp-svn: studiopress/wp-svn@0.2
 
-executors:
-  php_node:
+jobs:
+  lint:
     docker:
       - image: cimg/php:7.3-node
-
-jobs:
-  checks:
-    executor: php_node
     steps:
       - checkout
       - run: composer install && composer phpcs
 
 workflows:
-  test-deploy:
+  lint-deploy:
     jobs:
-      - checks
+      - lint
       - approval-for-deploy-tested-up-to-bump:
           requires:
-            - checks
+            - lint
           type: approval
           filters:
             tags:
@@ -40,4 +36,4 @@ workflows:
             branches:
               ignore: /.*/
           requires:
-            - checks
+            - lint
