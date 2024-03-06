@@ -38,6 +38,11 @@ workflows:
           requires:
             - approval-for-deploy-tested-up-to-bump
       - wp-svn/deploy:
-          dry-run: true
+          context: genesis-svn
+          filters:
+            tags:
+              only: /^\d+\.\d+\.\d+$/
+            branches:
+              ignore: /.*/
           requires:
             - checks
