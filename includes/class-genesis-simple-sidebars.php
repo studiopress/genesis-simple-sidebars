@@ -59,6 +59,14 @@ class Genesis_Simple_Sidebars {
 	 */
 	public $entry;
 
+
+	/**
+	 * Term.
+	 *
+	 * @var Genesis_Simple_Sidebars_Term
+	 */
+	public $term;
+
 	/**
 	 * Constructor.
 	 *
