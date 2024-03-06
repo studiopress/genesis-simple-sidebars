@@ -37,6 +37,10 @@ Not in the way you're probably thinking. The markup surrounding the widget area 
 
 == Changelog ==
 
+= 2.2.3 =
+* Prevent a PHP fatal error under PHP 8.x if incomplete sidebar data exists.
+* Fix a PHP deprecation warning under PHP 8.x.
+* Fix Genesis download link in admin notice if a Genesis child theme is not active.
 
 = 2.2.2 =
 * Fix overlapping of sidebar selector in editor.
