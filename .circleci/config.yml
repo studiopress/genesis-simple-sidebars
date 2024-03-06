@@ -9,16 +9,16 @@ executors:
       - image: cimg/php:7.3-node
 
 jobs:
-  checks:
+  lint:
     executor: php_node
     steps:
       - checkout
       - run: composer install && composer phpcs
 
 workflows:
-  test-deploy:
+  lint-deploy:
     jobs:
-      - checks
+      - lint
       - approval-for-deploy-tested-up-to-bump:
           requires:
             - checks
