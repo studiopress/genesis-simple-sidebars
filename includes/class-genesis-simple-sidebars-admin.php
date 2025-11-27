@@ -51,8 +51,18 @@ class Genesis_Simple_Sidebars_Admin extends Genesis_Admin_Basic {
 		$menu_ops = array(
 			'submenu' => array(
 				'parent_slug' => 'genesis',
-				'page_title'  => __( 'Genesis - Simple Sidebars', 'genesis-simple-sidebars' ),
-				'menu_title'  => __( 'Simple Sidebars', 'genesis-simple-sidebars' ),
+
+				/*
+				* These strings intentionally avoid using the plugin text
+				* domain here because this method can be called before the
+				* `init` action (via `genesis_setup`). Using `__()` with the
+				* `genesis-simple-sidebars` domain at that point would cause
+				* WordPress 6.7+ to emit a "_load_textdomain_just_in_time
+				* was called incorrectly" notice. Other plugin strings remain
+				* fully translatable once the text domain is loaded on `init`.
+				*/
+				'page_title'  => 'Genesis - Simple Sidebars',
+				'menu_title'  => 'Simple Sidebars',
 			),
 		);
 

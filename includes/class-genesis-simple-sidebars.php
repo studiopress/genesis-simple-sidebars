@@ -86,7 +86,7 @@ class Genesis_Simple_Sidebars {
 	 */
 	public function init() {
 
-		$this->load_plugin_textdomain();
+		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
 		add_action( 'admin_notices', array( $this, 'requirements_notice' ) );
 
