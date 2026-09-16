@@ -4,3 +4,4 @@
 .svnignore
 node_modules
 .circleci
+repo-info.yaml
